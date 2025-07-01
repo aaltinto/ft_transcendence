@@ -1,9 +1,21 @@
 services:
   nginx:
-    build: nginx/.
+    build: services/nginx/.
     container_name: nginx
+    volumes:
+      - ./services/nginx/certs:/etc/nginx/certs:ro
+      - ./app:/app
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - auth
+  
+  auth:
+    build: services/auth/.
+    container_name: auth
     volumes:
-      - 
+      - auth_data:/app/data
+
+volumes:
+  auth_data:
