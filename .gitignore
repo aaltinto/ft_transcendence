@@ -1,5 +1,6 @@
 node_modules
-en.subject.pdf
+*.pdf
 .DS_Store
 *.crt
 *.key
+.env

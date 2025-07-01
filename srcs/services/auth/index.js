@@ -1,8 +1,17 @@
 import Fastify from 'fastify';
 import db from './data/db.js';
+import dotenv from 'dotenv'
 import registerRoute from './routes/register.js';
 import loginRoute from './routes/login.js';
+
+dotenv.config();
+
 const auth = Fastify();
+
+auth.use(require('helmet')({
+    contentSecurityPolicy: false, // Disable CSP if not needed
+    frameguard: { action: 'deny' }, // Prevent iframe embedding
+}));
 
 // regsister the routes
 registerRoute(auth, db);

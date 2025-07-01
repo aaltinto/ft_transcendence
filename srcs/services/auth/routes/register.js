@@ -1,7 +1,12 @@
+import { generateToken } from './middleware/generateToken.js';
+import bcrypt from 'bcrypt';
+import xss from 'xss';
+
 export default function registerRoute(auth, db) {
   // API: Register
   auth.post('/register', async (request, reply) => {
-    const { username, password } = request.body;
+    const username = xss(request.body.username);
+    const password = xss(request.body.password);
 
     if (!username || !password) {
       return reply.status(400).send({ error: 'Username and password are required' });
@@ -15,9 +20,12 @@ export default function registerRoute(auth, db) {
       }
 
       // Insert the new user into the database
-      db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run(username, password);
+      const hashedPassword = await bcrypt.hash(password, 10);
+      db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run(username, hashedPassword);
 
-      reply.status(201).send({ message: 'User registered successfully' });
+      const token = generateToken(username);
+
+      reply.status(201).send({ message: 'User registered successfully', token });
     } catch (err) {
       console.error(err);
       reply.status(500).send({ error: 'Internal server error' });
