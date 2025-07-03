@@ -15,24 +15,16 @@ services:
     container_name: auth
     env_file:
       - services/auth/.env
-    ports:
-      - "3001:3001"
     volumes:
       - auth_data:/app/data
-    networks:
-      - auth_network
   
   user:
     build: services/user/.
     container_name: user
     env_file:
       - services/user/.env
-    ports:
-      - "3002:3002"
     volumes:
       - user_data:/app/data
-    networks:
-      - user_network
     depends_on:
       - auth
 

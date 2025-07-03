@@ -14,7 +14,12 @@ export default function findUser(user, db) {
 			return reply.status(404).send({ error: 'User not found' });
 		}
 
-		reply.send({ user: userRecord });
+		reply.send({ 
+                user: { 
+                    id: userRecord.lastInsertRowid, 
+                    username 
+                } 
+            });
 	} catch (err) {
 		console.error(err);
 		reply.status(500).send({ error: 'Internal server error' });

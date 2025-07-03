@@ -24,7 +24,12 @@ export default function userCreate(user, db) {
 				return reply.status(500).send({ error: 'Failed to create user' });
 			}
 			console.log(`User ${username} created successfully`);
-			reply.status(201).send(result);
+			reply.status(201).send({ 
+                user: { 
+                    id: result.lastInsertRowid, 
+                    username 
+                } 
+            });
 		}
 		catch (err) {
 			console.error(err);
