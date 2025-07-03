@@ -1,6 +1,6 @@
 COMPOSE_LOCATION=srcs/docker-compose.yml
 
-all: up
+all: crt up
 
 up:
 	docker compose -f $(COMPOSE_LOCATION) up --build
