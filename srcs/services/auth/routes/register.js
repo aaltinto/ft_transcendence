@@ -1,4 +1,4 @@
-import { generateToken } from './middleware/generateToken.js';
+import generateToken from '../middleware/generateToken.js';
 import bcrypt from 'bcrypt';
 import xss from 'xss';
 

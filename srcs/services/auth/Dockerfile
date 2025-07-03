@@ -10,6 +10,7 @@ RUN mkdir -p /app/data
 
 COPY index.js .
 COPY middleware/auth.js ./middleware/
+COPY middleware/generateToken.js ./middleware/
 COPY data/db.js ./data/
 COPY routes/register.js ./routes/
 COPY routes/login.js ./routes/
