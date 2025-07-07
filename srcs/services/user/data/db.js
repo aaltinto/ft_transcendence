@@ -17,7 +17,7 @@ function initDb() {
   	  id INTEGER PRIMARY KEY AUTOINCREMENT,
   	  username TEXT UNIQUE NOT NULL,
   	  display_name TEXT,
-  	  avatar_url TEXT DEFAULT 'app/static/media/default.jpeg',
+  	  avatar_url TEXT DEFAULT 'static/media/default.jpeg',
   	  status TEXT DEFAULT 'offline',
   	  matches_played INTEGER DEFAULT 0,
   	  matches_won INTEGER DEFAULT 0,

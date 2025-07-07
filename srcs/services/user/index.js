@@ -3,6 +3,7 @@ import db from './data/db.js';
 import dotenv from 'dotenv';
 import findUser from './routes/find_user.js';
 import userCreate from './routes/user_create.js';
+import verifyTokenRoute from './routes/verifyToken.js';
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ const user = Fastify();
 // Register routes
 findUser(user, db);
 userCreate(user, db);
+verifyTokenRoute(user, db);
 
 
 // Run the server!

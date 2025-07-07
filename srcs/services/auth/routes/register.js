@@ -45,7 +45,7 @@ export default function registerRoute(auth, db) {
         db.prepare('DELETE FROM users WHERE username = ?').run(username);
         return reply.status(500).send({ error: 'Invalid user profile data' });
       }
-      const token = generateToken(profileData);
+      const token = generateToken(profileData.user);
 
       console.log(`User ${username} registered successfully`);
       reply.status(201).send({ message: 'User registered successfully', token });
