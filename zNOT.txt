@@ -1,0 +1,85 @@
+CSS OZELLIKLERI
+
+***TAG***
+
+Bu HTML kodundaki <form>, <input>, <h1> gibi elemanlara HTML etiketleri (HTML tags) veya HTML elementleri denir.
+
+
+***PROPERTİES***
+
+margin-bottom, padding, width gibi şeyler CSS özellikleri (CSS properties) denir.
+
+
+
+
+-----------------------------------------------------------------------
+
+
+
+
+Yaygın HTML Etiketleri ve Anlamları:
+Yapısal Etiketler:
+
+<html> - HTML belgesinin kök elementi
+<head> - Sayfa meta bilgileri
+<body> - Sayfa içeriği
+<div> - Genel konteyner
+<span> - Satır içi konteyner
+Metin Etiketleri:
+<h1>, <h2>, <h3>, <h4>, <h5>, <h6> - Başlık etiketleri (h1 en büyük)
+<p> - Paragraf
+<br> - Satır sonu
+<strong> - Kalın metin
+<em> - Vurgulu metin
+Form Etiketleri:
+<form> - Form konteyner
+<input> - Giriş alanı (text, password, email, vb.)
+<button> - Buton
+<textarea> - Çok satırlı metin alanı
+<select> - Açılır menü
+<label> - Form etiketleri
+Diğer Önemli Etiketler:
+<a> - Bağlantı (link)
+<img> - Resim
+<ul>, <ol>, <li> - Liste etiketleri
+<table>, <tr>, <td> - Tablo etiketleri
+
+
+
+
+-----------------------------------------------------------------------
+
+
+
+
+
+📋 CSS Boşluk Properties Özeti:
+🎯 Temel Boşluk Properties:
+Property	Ne İşe Yarar	Örnek
+margin	Dış boşluk	margin: 10px;
+margin-top	Üst dış boşluk	margin-top: 15px;
+margin-bottom	Alt dış boşluk	margin-bottom: 20px;
+margin-left	Sol dış boşluk	margin-left: 10px;
+margin-right	Sağ dış boşluk	margin-right: 10px;
+padding	İç boşluk	padding: 8px;
+padding-top	Üst iç boşluk	padding-top: 12px;
+padding-bottom	Alt iç boşluk	padding-bottom: 12px;
+padding-left	Sol iç boşluk	padding-left: 15px;
+padding-right	Sağ iç boşluk	padding-right: 15px;
+🚀 Modern Boşluk Properties:
+Property	Ne İşe Yarar	Örnek
+gap	Flex/Grid elementler arası	gap: 20px;
+row-gap	Satır arası boşluk	row-gap: 15px;
+column-gap	Sütun arası boşluk	column-gap: 10px;
+📝 Yazı Boşluk Properties:
+Property	Ne İşe Yarar	Örnek
+line-height	Satır arası boşluk	line-height: 1.5;
+letter-spacing	Harf arası boşluk	letter-spacing: 1px;
+word-spacing	Kelime arası boşluk	word-spacing: 2px;
+📍 Pozisyon Boşluk Properties:
+Property	Ne İşe Yarar	Örnek
+top	Üstten uzaklık	top: 10px;
+bottom	Alttan uzaklık	bottom: 10px;
+left	Soldan uzaklık	left: 15px;
+right	Sağdan uzaklık	right: 15px;
+⚡ Hızlı Kullanım Örnekleri:

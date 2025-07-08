@@ -39,7 +39,7 @@ export default function loginRoute(auth, db) {
         console.error('Invalid user profile data');
         return reply.status(500).send({ error: 'Invalid user profile data' });
       }
-      const token = generateToken(profileData.user);
+      const token = generateToken(profileData);
 
       reply.send({ message: 'Login successful', token });
     } catch (err) {

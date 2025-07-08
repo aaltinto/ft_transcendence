@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSS Variables Açıklaması</title>
+    <style>
+        /* 1. ADIM: Değişkenleri tanımla (sadece değerler) */
+        :root {
+            --ana-bosluk: 20px;      /* Sadece bir sayı değeri */
+            --ana-renk: #3498db;     /* Sadece bir renk değeri */
+            --ana-genislik: 250px;   /* Sadece bir boyut değeri */
+            --kalin-cerceve: 3px;    /* Sadece bir kalınlık değeri */
+        }
+        
+        /* 2. ADIM: Değişkenleri istediğin özelliklerde kullan */
+        .ornekler {
+            /* Aynı değişkeni farklı özelliklerde kullanabilirsin */
+            margin-bottom: var(--ana-bosluk);    /* margin-bottom'da kullan */
+            padding-top: var(--ana-bosluk);      /* padding-top'ta kullan */
+            margin-left: var(--ana-bosluk);      /* margin-left'te kullan */
+            
+            /* Farklı değişkenleri farklı özelliklerde kullan */
+            color: var(--ana-renk);              /* color'da kullan */
+            border-color: var(--ana-renk);       /* border-color'da kullan */
+            width: var(--ana-genislik);          /* width'te kullan */
+            border-width: var(--kalin-cerceve);  /* border-width'te kullan */
+            
+            border-style: solid;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        
+        /* 3. ADIM: Aynı değişkeni başka yerlerde de kullan */
+        .baska-element {
+            height: var(--ana-genislik);         /* height'te kullan */
+            font-size: var(--ana-bosluk);       /* font-size'da kullan */
+            background-color: var(--ana-renk);  /* background-color'da kullan */
+            padding: var(--kalin-cerceve);      /* padding'te kullan */
+            margin: var(--ana-bosluk);          /* margin'de kullan */
+        }
+        
+        /* Normal CSS ile karşılaştırma */
+        .normal-css {
+            margin-bottom: 20px;    /* Değeri direkt yazıyorsun */
+            padding-top: 20px;      /* Aynı değeri tekrar yazıyorsun */
+            margin-left: 20px;      /* Yine aynı değeri yazıyorsun */
+            color: #3498db;         /* Aynı rengi tekrar yazıyorsun */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CSS Variables Nasıl Çalışır?</h1>
+    
+    <div style="background: #f0f0f0; padding: 15px; margin: 10px 0;">
+        <h3>1. Değişken Tanımlama:</h3>
+        <code>--ana-bosluk: 20px;</code> → Sadece değer sakla<br>
+        <code>--ana-renk: #3498db;</code> → Sadece değer sakla
+    </div>
+    
+    <div style="background: #e8f4f8; padding: 15px; margin: 10px 0;">
+        <h3>2. Değişken Kullanma:</h3>
+        <code>margin-bottom: var(--ana-bosluk);</code> → Burada söylüyorsun hangi özellikte kullanacağını!<br>
+        <code>color: var(--ana-renk);</code> → Burada söylüyorsun hangi özellikte kullanacağını!
+    </div>
+    
+    <h3>CSS Variables ile yapılmış örnekler:</h3>
+    <input type="text" class="ornekler" placeholder="CSS Variables kullanılan input">
+    
+    <div class="baska-element" style="color: white; text-align: center;">
+        Aynı değişkenler farklı özelliklerde kullanıldı
+    </div>
+    
+    <h3>Normal CSS ile yapılmış örnek:</h3>
+    <input type="text" class="normal-css" placeholder="Normal CSS kullanılan input">
+    
+    <div style="background: #fff3cd; padding: 15px; margin: 20px 0; border-left: 4px solid #ffc107;">
+        <h4>Önemli:</h4>
+        <ul>
+            <li><strong>--ana-bosluk: 20px;</strong> → Sadece değer tanımlıyorsun</li>
+            <li><strong>margin-bottom: var(--ana-bosluk);</strong> → Burada hangi özellikte kullanacağını söylüyorsun</li>
+            <li><strong>Aynı değişkeni</strong> farklı özelliklerde kullanabilirsin</li>
+            <li><strong>Değişken değiştirince</strong> her yerde otomatik değişir</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSS Boşluk Properties</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .demo-box {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            margin: 10px 0;
+            padding: 10px;
+            display: inline-block;
+        }
+        
+        .inner-box {
+            background: #fff3e0;
+            border: 1px solid #ff9800;
+            padding: 5px;
+        }
+        
+        /* Margin örnekleri */
+        .margin-top { margin-top: 20px; }
+        .margin-bottom { margin-bottom: 20px; }
+        .margin-left { margin-left: 30px; }
+        .margin-right { margin-right: 30px; }
+        .margin-all { margin: 15px; }
+        
+        /* Padding örnekleri */
+        .padding-top { padding-top: 20px; }
+        .padding-bottom { padding-bottom: 20px; }
+        .padding-left { padding-left: 30px; }
+        .padding-right { padding-right: 30px; }
+        .padding-all { padding: 15px; }
+        
+        /* Gap örnekleri */
+        .flex-gap {
+            display: flex;
+            gap: 20px;
+            background: #f0f0f0;
+            padding: 10px;
+        }
+        
+        .grid-gap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            background: #f0f0f0;
+            padding: 10px;
+        }
+        
+        .flex-item, .grid-item {
+            background: #4caf50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        /* Line-height örnekleri */
+        .line-height-small { line-height: 1.2; }
+        .line-height-normal { line-height: 1.5; }
+        .line-height-large { line-height: 2.0; }
+        
+        /* Letter-spacing örnekleri */
+        .letter-spacing-small { letter-spacing: 0.5px; }
+        .letter-spacing-normal { letter-spacing: 1px; }
+        .letter-spacing-large { letter-spacing: 3px; }
+        
+        /* Word-spacing örnekleri */
+        .word-spacing-small { word-spacing: 2px; }
+        .word-spacing-normal { word-spacing: 5px; }
+        .word-spacing-large { word-spacing: 10px; }
+        
+        /* Pozisyon örnekleri */
+        .position-relative {
+            position: relative;
+            background: #ffeb3b;
+            padding: 10px;
+        }
+        
+        .position-absolute {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #f44336;
+            color: white;
+            padding: 5px;
+        }
+        
+        .code {
+            background: #263238;
+            color: #4caf50;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .property-name {
+            color: #1976d2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CSS Boşluk Properties - Tam Rehber</h1>
+    
+    <!-- MARGIN -->
+    <div class="section">
+        <h2>1. MARGIN - Dış Boşluk</h2>
+        <p>Elementin <strong>dışındaki</strong> boşluğu kontrol eder.</p>
+        
+        <div class="demo-box">
+            Normal kutu
+        </div>
+        
+        <div class="demo-box margin-top">
+            <span class="code">margin-top: 20px;</span>
+        </div>
+        
+        <div class="demo-box margin-bottom">
+            <span class="code">margin-bottom: 20px;</span>
+        </div>
+        
+        <div class="demo-box margin-left">
+            <span class="code">margin-left: 30px;</span>
+        </div>
+        
+        <div class="demo-box margin-right">
+            <span class="code">margin-right: 30px;</span>
+        </div>
+        
+        <div class="demo-box margin-all">
+            <span class="code">margin: 15px;</span> (tüm yönlerde)
+        </div>
+        
+        <h4>Margin Özellikleri:</h4>
+        <ul>
+            <li><span class="property-name">margin-top</span>: Üst dış boşluk</li>
+            <li><span class="property-name">margin-bottom</span>: Alt dış boşluk</li>
+            <li><span class="property-name">margin-left</span>: Sol dış boşluk</li>
+            <li><span class="property-name">margin-right</span>: Sağ dış boşluk</li>
+            <li><span class="property-name">margin</span>: Tüm yönlerde dış boşluk</li>
+        </ul>
+    </div>
+    
+    <!-- PADDING -->
+    <div class="section">
+        <h2>2. PADDING - İç Boşluk</h2>
+        <p>Elementin <strong>içindeki</strong> boşluğu kontrol eder.</p>
+        
+        <div class="demo-box">
+            <div class="inner-box">Normal iç kutu</div>
+        </div>
+        
+        <div class="demo-box padding-top">
+            <div class="inner-box"><span class="code">padding-top: 20px;</span></div>
+        </div>
+        
+        <div class="demo-box padding-bottom">
+            <div class="inner-box"><span class="code">padding-bottom: 20px;</span></div>
+        </div>
+        
+        <div class="demo-box padding-left">
+            <div class="inner-box"><span class="code">padding-left: 30px;</span></div>
+        </div>
+        
+        <div class="demo-box padding-right">
+            <div class="inner-box"><span class="code">padding-right: 30px;</span></div>
+        </div>
+        
+        <div class="demo-box padding-all">
+            <div class="inner-box"><span class="code">padding: 15px;</span></div>
+        </div>
+        
+        <h4>Padding Özellikleri:</h4>
+        <ul>
+            <li><span class="property-name">padding-top</span>: Üst iç boşluk</li>
+            <li><span class="property-name">padding-bottom</span>: Alt iç boşluk</li>
+            <li><span class="property-name">padding-left</span>: Sol iç boşluk</li>
+            <li><span class="property-name">padding-right</span>: Sağ iç boşluk</li>
+            <li><span class="property-name">padding</span>: Tüm yönlerde iç boşluk</li>
+        </ul>
+    </div>
+    
+    <!-- GAP -->
+    <div class="section">
+        <h2>3. GAP - Elementler Arası Boşluk</h2>
+        <p>Flexbox ve Grid'de elementler arasındaki boşluk.</p>
+        
+        <h4>Flexbox Gap:</h4>
+        <div class="flex-gap">
+            <div class="flex-item">Item 1</div>
+            <div class="flex-item">Item 2</div>
+            <div class="flex-item">Item 3</div>
+        </div>
+        <span class="code">gap: 20px;</span>
+        
+        <h4>Grid Gap:</h4>
+        <div class="grid-gap">
+            <div class="grid-item">Grid 1</div>
+            <div class="grid-item">Grid 2</div>
+            <div class="grid-item">Grid 3</div>
+            <div class="grid-item">Grid 4</div>
+        </div>
+        <span class="code">gap: 15px;</span>
+        
+        <h4>Gap Özellikleri:</h4>
+        <ul>
+            <li><span class="property-name">gap</span>: Hem satır hem sütun arası boşluk</li>
+            <li><span class="property-name">row-gap</span>: Sadece satır arası boşluk</li>
+            <li><span class="property-name">column-gap</span>: Sadece sütun arası boşluk</li>
+        </ul>
+    </div>
+    
+    <!-- YAZILI BOŞLUKLAR -->
+    <div class="section">
+        <h2>4. YAZILI BOŞLUKLAR</h2>
+        
+        <h4>Line-height - Satır Arası Boşluk:</h4>
+        <div class="line-height-small">
+            <span class="code">line-height: 1.2;</span><br>
+            Bu metin satır arası boşluğu küçük.<br>
+            İkinci satır çok yakın.
+        </div>
+        
+        <div class="line-height-normal">
+            <span class="code">line-height: 1.5;</span><br>
+            Bu metin satır arası boşluğu normal.<br>
+            İkinci satır rahat.
+        </div>
+        
+        <div class="line-height-large">
+            <span class="code">line-height: 2.0;</span><br>
+            Bu metin satır arası boşluğu büyük.<br>
+            İkinci satır çok uzak.
+        </div>
+        
+        <h4>Letter-spacing - Harf Arası Boşluk:</h4>
+        <div class="letter-spacing-small">
+            <span class="code">letter-spacing: 0.5px;</span> - Sıkışık yazı
+        </div>
+        
+        <div class="letter-spacing-normal">
+            <span class="code">letter-spacing: 1px;</span> - Normal yazı
+        </div>
+        
+        <div class="letter-spacing-large">
+            <span class="code">letter-spacing: 3px;</span> - G e n i ş   y a z ı
+        </div>
+        
+        <h4>Word-spacing - Kelime Arası Boşluk:</h4>
+        <div class="word-spacing-small">
+            <span class="code">word-spacing: 2px;</span> - Kelime arası küçük boşluk
+        </div>
+        
+        <div class="word-spacing-normal">
+            <span class="code">word-spacing: 5px;</span> - Kelime arası  normal  boşluk
+        </div>
+        
+        <div class="word-spacing-large">
+            <span class="code">word-spacing: 10px;</span> - Kelime    arası    büyük    boşluk
+        </div>
+        
+        <h4>Yazı Boşluk Özellikleri:</h4>
+        <ul>
+            <li><span class="property-name">line-height</span>: Satır arası boşluk</li>
+            <li><span class="property-name">letter-spacing</span>: Harf arası boşluk</li>
+            <li><span class="property-name">word-spacing</span>: Kelime arası boşluk</li>
+        </ul>
+    </div>
+    
+    <!-- POZİSYON -->
+    <div class="section">
+        <h2>5. POZİSYON BOŞLUKLARI</h2>
+        
+        <div class="position-relative">
+            <span class="code">position: relative;</span>
+            <div class="position-absolute">
+                <span class="code">top: 10px; left: 10px;</span>
+            </div>
+        </div>
+        
+        <h4>Pozisyon Özellikleri:</h4>
+        <ul>
+            <li><span class="property-name">top</span>: Üstten uzaklık</li>
+            <li><span class="property-name">bottom</span>: Alttan uzaklık</li>
+            <li><span class="property-name">left</span>: Soldan uzaklık</li>
+            <li><span class="property-name">right</span>: Sağdan uzaklık</li>
+        </ul>
+    </div>
+    
+    <!-- BOYUT -->
+    <div class="section">
+        <h2>6. BOYUT ÖZELLİKLERİ</h2>
+        <p>Dolaylı olarak boşluk oluşturur.</p>
+        
+        <h4>Boyut Özellikleri:</h4>
+        <ul>
+            <li><span class="property-name">width</span>: Genişlik</li>
+            <li><span class="property-name">height</span>: Yükseklik</li>
+            <li><span class="property-name">max-width</span>: Maksimum genişlik</li>
+            <li><span class="property-name">min-width</span>: Minimum genişlik</li>
+            <li><span class="property-name">max-height</span>: Maksimum yükseklik</li>
+            <li><span class="property-name">min-height</span>: Minimum yükseklik</li>
+        </ul>
+    </div>
+    
+    <!-- ÖZET -->
+    <div class="section">
+        <h2>7. HIZLI BAŞVURU</h2>
+        
+        <h4>🎯 En Çok Kullanılan Boşluk Properties:</h4>
+        <div style="background: #e8f5e8; padding: 15px; border-radius: 5px;">
+            <strong>Temel Boşluklar:</strong><br>
+            <span class="code">margin: 10px;</span> - Dış boşluk<br>
+            <span class="code">padding: 10px;</span> - İç boşluk<br>
+            <span class="code">gap: 15px;</span> - Elementler arası boşluk<br>
+            <span class="code">line-height: 1.5;</span> - Satır arası boşluk<br>
+        </div>
+        
+        <h4>🚀 Pratik Örnekler:</h4>
+        <div style="background: #fff3e0; padding: 15px; border-radius: 5px;">
+            <strong>Form elementleri için:</strong><br>
+            <span class="code">margin-bottom: 15px;</span> - Alt boşluk<br>
+            <span class="code">padding: 8px 12px;</span> - İç boşluk<br>
+            <br>
+            <strong>Butonlar için:</strong><br>
+            <span class="code">margin: 10px 5px;</span> - Çevre boşluk<br>
+            <span class="code">padding: 10px 20px;</span> - İç boşluk<br>
+            <br>
+            <strong>Kartlar için:</strong><br>
+            <span class="code">margin: 20px;</span> - Dış boşluk<br>
+            <span class="code">padding: 15px;</span> - İç boşluk<br>
+        </div>
+    </div>
+</body>
+</html>
