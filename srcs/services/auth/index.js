@@ -8,6 +8,12 @@ dotenv.config();
 
 const auth = Fastify();
 
+// Register CORS plugin
+await auth.register(import('@fastify/cors'), {
+  origin: ['https://localhost:8443', 'http://localhost:3000', 'http://localhost:8080'],
+  credentials: true
+});
+
 // regsister the routes
 registerRoute(auth, db);
 loginRoute(auth, db);
