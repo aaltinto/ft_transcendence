@@ -9,6 +9,7 @@ RUN npm install
 RUN mkdir -p /app/data
 
 COPY data/ ./data/
+COPY middleware/ ./middleware/
 COPY index.js .
 COPY routes/ ./routes/
 
