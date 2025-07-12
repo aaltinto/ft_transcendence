@@ -6,9 +6,12 @@ services:
       - ./services/nginx/certs:/etc/nginx/certs:ro
       - ./app:/app
     ports:
-      - "3000:443"
+      - "8443:443"
     depends_on:
       - auth
+      - user
+    networks:
+      - app_network
   
   auth:
     build: services/auth/.
@@ -17,6 +20,8 @@ services:
       - services/auth/.env
     volumes:
       - auth_data:/app/data
+    networks:
+      - app_network
   
   user:
     build: services/user/.
@@ -27,13 +32,13 @@ services:
       - user_data:/app/data
     depends_on:
       - auth
+    networks:
+      - app_network
 
 volumes:
   auth_data:
   user_data:
 
 networks:
-  auth_network:
-    driver: bridge
-  user_network:
+  app_network:
     driver: bridge

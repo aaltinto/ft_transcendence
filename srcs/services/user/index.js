@@ -5,6 +5,7 @@ import findUser from './routes/find_user.js';
 import userCreate from './routes/user_create.js';
 import verifyTokenRoute from './routes/verifyToken.js';
 import profileRoute from './routes/profile.js';
+import statusRoute from './routes/status.js';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ findUser(user, db);
 userCreate(user, db);
 verifyTokenRoute(user, db);
 profileRoute(user, db);
+statusRoute(user, db);
 
 
 // Run the server!
