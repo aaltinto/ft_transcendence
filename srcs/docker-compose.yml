@@ -10,14 +10,18 @@ services:
       - "8443:443"
     depends_on:
       - auth
+      - user
+    networks:
+      - auth_network
+      - user_network
   
   auth:
     build: services/auth/.
     container_name: auth
     ports:
-      - "3000:3000"
-    # env_file:
-    #   - services/auth/.env
+      - "3001:3001"
+    env_file:
+      - services/auth/.env
     volumes:
       - auth_data:/app/data
     networks:
@@ -29,7 +33,7 @@ services:
     env_file:
       - services/user/.env
     ports:
-      - "3001:3000"
+      - "3002:3002"
     volumes:
       - user_data:/app/data
     networks:
@@ -41,8 +45,8 @@ services:
     ports:
       - "5672:5672"       # AMQP
       - "15672:15672"     # Management UI
-    env_file:
-      - services/rabbitMQ/.env
+    # env_file:
+    #   - services/rabbitMQ/.env
     networks:
       - auth_network
       - user_network

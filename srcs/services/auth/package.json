@@ -14,7 +14,9 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "amqplib": "^0.10.8",
     "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.0",
     "better-sqlite3": "^12.2.0",
     "fastify": "^5.4.0",
     "xss": "^1.0.15"
@@ -24,6 +26,7 @@
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^24.0.13",
     "tsx": "^4.7.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "@types/amqplib": "^0.10.7"
   }
 }

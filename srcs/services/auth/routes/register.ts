@@ -2,6 +2,7 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import Database from "better-sqlite3";
 import bcrypt from "bcrypt";
 import xss from "xss";
+import { publishQueue } from "./message.js";
 
 export default function registerRoute(
   fastify: FastifyInstance,
@@ -39,6 +40,13 @@ export default function registerRoute(
           user,
           hashedPassword
         );
+
+        try {
+          await publishQueue('user_created', {username: user} );
+          console.log("Message sent");
+        } catch (err) {
+          console.log("Error while sending messages:", err);
+        }
         return reply.status(201).send({ message: "User registered successfully" });
       } catch (err) {
         console.log("Internal Server Error", err);

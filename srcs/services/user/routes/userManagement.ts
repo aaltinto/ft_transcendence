@@ -22,9 +22,23 @@ export default function userManagement(
             request: FastifyRequest,
             reply: FastifyReply
         ) => {
-            const username = request.body as profileBody
+            const username = request.query as profileBody
+            console.log("Fetching profile for user:", username.username);
             try {
-                db.prepare(`SELECT * FROM users WHERE username = ?`).get(username.username);
+                const user = db.prepare(`SELECT * FROM users WHERE username = ?`).get(username.username);
+                console.log("DB result:", user);
+                if (!user) {
+                    return reply.status(404).send("User not found");
+                }
+                const parsedUser = user as profile;
+                return reply.status(200).send({
+                    username: parsedUser.username,
+                    status: parsedUser.status,
+                    matches_played: parsedUser.matches_played,
+                    matches_won: parsedUser.matches_won,
+                    last_active: parsedUser.last_active,
+                    created_at: parsedUser.created_at
+                });
 
             } catch (err) {
                 console.log("internal server error on profile");
