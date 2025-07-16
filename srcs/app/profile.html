@@ -303,7 +303,12 @@
             }
 
             try {
-                const response = await fetch(`/user/find/${username}`);
+                const token = localStorage.getItem('authToken');
+                const response = await fetch(`/user/find/${username}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -367,8 +372,59 @@
             // In a real implementation, this would open an edit form or redirect to an edit page
         }
 
+        // User heartbeat to keep online status active
+        function startHeartbeat() {
+            const token = localStorage.getItem('authToken');
+            if (!token) return; // Don't start heartbeat if not logged in
+
+            // Send heartbeat every 60 seconds (server timeout is 5 minutes)
+            const heartbeatInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('/user/online', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        console.warn('Heartbeat failed, stopping:', response.status);
+                        clearInterval(heartbeatInterval);
+                        
+                        // If unauthorized (token expired), redirect to login
+                        if (response.status === 401) {
+                            localStorage.removeItem('authToken');
+                            window.location.href = 'index.html';
+                        }
+                    } else {
+                        console.log('Heartbeat sent successfully');
+                    }
+                } catch (error) {
+                    console.error('Heartbeat error:', error);
+                }
+            }, 60000); // Send heartbeat every minute
+
+            // Store the interval ID in a property so we can clear it if needed
+            window.heartbeatIntervalId = heartbeatInterval;
+
+            // Clear the heartbeat when the page is closed/refreshed
+            window.addEventListener('beforeunload', () => {
+                clearInterval(heartbeatIntervalId);
+                // Optionally set status to offline when leaving
+                fetch('/user/offline', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }).catch(err => console.log('Error setting offline status'));
+            });
+        }
+
         // Load profile when page loads
-        document.addEventListener('DOMContentLoaded', loadProfile);
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProfile();
+            startHeartbeat(); // Start the heartbeat when the page loads
+        });
     </script>
 </body>
 </html>

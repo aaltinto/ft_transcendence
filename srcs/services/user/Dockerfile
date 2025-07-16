@@ -1,15 +1,17 @@
-FROM node:18-slim
+FROM node:20-slim
 
 WORKDIR /app
 
-COPY package.json .
+COPY package.json ./
+COPY tsconfig.json ./
 
-RUN npm install
+RUN npm install --include=dev
+
+COPY . .
+
+RUN npm run build
 
 RUN mkdir -p /app/data
 
-COPY data/ ./data/
-COPY index.js .
-COPY routes/ ./routes/
-
-CMD ["node", "index.js"]
+# Start the application
+CMD ["npm", "start"]

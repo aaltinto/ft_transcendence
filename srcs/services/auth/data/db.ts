@@ -2,16 +2,15 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 
-const DATA_DIR = '/app/data';
-const DB_PATH = path.join(DATA_DIR, 'auth.db');
+const DATA_DIR: string = 'app/data';
+const DB_PATH: string = path.join(DATA_DIR, 'auth.db');
 
-if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-}
+if (!fs.existsSync(DATA_DIR))
+    fs.mkdirSync(DATA_DIR, {recursive: true});
 
-const db = new Database(DB_PATH);
+const db = Database(DB_PATH);
 
-function initDb() {
+function initDB() {
     db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,10 +19,9 @@ function initDb() {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
   `);
-
-  console.log('Database initialized at:', DB_PATH);
+  console.log("DB created at ", DB_PATH);
 }
 
-initDb();
+initDB();
 
 export default db;
