@@ -14,14 +14,25 @@ function initDB() {
 	CREATE TABLE IF NOT EXISTS users (
   	  id INTEGER PRIMARY KEY AUTOINCREMENT,
   	  username TEXT UNIQUE NOT NULL,
-  	  display_name TEXT,
+  	  display_name TEXT UNIQUE,
   	  avatar_url TEXT DEFAULT 'static/media/default.jpeg',
   	  status TEXT DEFAULT 'offline',
   	  matches_played INTEGER DEFAULT 0,
   	  matches_won INTEGER DEFAULT 0,
   	  last_active TIMESTAMP,
   	  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
+	CREATE TABLE IF NOT EXISTS friends (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      friend_id INTEGER NOT NULL,
+      status TEXT NOT NULL DEFAULT 'pending', -- 'pending', 'accepted', 'blocked'
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+      FOREIGN KEY (friend_id) REFERENCES users (id) ON DELETE CASCADE,
+      UNIQUE (user_id, friend_id) -- Prevent duplicate friendships
+    );
   `);
   console.log("DB created at ", DB_PATH);
 }
