@@ -2,7 +2,7 @@
 # Content-Type: application/json
 
 # {
-#   "username": "berhan",
+#   "username": "Berhan",
 #   "password": "123"
 # }
 
@@ -10,9 +10,16 @@
 # Content-Type: application/json
 
 # {
-# 	"username": "Berhan",
+# 	"username": "Ali",
 # 	"password": "123"
 # }
 
-# GET http://localhost:3002/profile?username=Ahmet
+# GET http://localhost:3002/profile?username=Ali
 # Content-Type: application/json
+
+GET http://localhost:3002/profile/1/friends
+Content-Type: application/json
+
+# {
+# 	"friendId": "2"
+# }

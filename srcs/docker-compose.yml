@@ -14,6 +14,7 @@ services:
     networks:
       - auth_network
       - user_network
+    restart: unless-stopped
   
   auth:
     build: services/auth/.
@@ -26,6 +27,9 @@ services:
       - auth_data:/app/data
     networks:
       - auth_network
+    depends_on:
+      - rabbitMQ
+    restart: unless-stopped
   
   user:
     build: services/user/.
@@ -38,6 +42,9 @@ services:
       - user_data:/app/data
     networks:
       - user_network
+    depends_on:
+      - rabbitMQ
+    restart: unless-stopped
   
   rabbitMQ:
     image: rabbitmq:3-management
@@ -50,6 +57,7 @@ services:
     networks:
       - auth_network
       - user_network
+    restart: unless-stopped
 
 volumes:
   auth_data:

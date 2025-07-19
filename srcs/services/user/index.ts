@@ -3,7 +3,7 @@ import db from './data/db.js';
 import userManagement from './routes/userManagement.js';
 import dotenv from 'dotenv';
 import { consumeQueue } from './routes/message.js';
-
+import friendRoutes from './routes/friends.js' 
 dotenv.config();
 
 const app = Fastify();
@@ -19,6 +19,7 @@ consumeQueue('user_created', (msg: {username: string}) => {
     console.log('user create', msg.username);
 });
 userManagement(app, db);
+friendRoutes(app);
 
 app.listen( {port : 3002, host: '0.0.0.0'}, () => {
     console.log("Server running at localhost:3000");
