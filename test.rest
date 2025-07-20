@@ -6,19 +6,36 @@
 #   "password": "123"
 # }
 
+# POST http://localhost:3001/2fa/verify
+# Content-Type: application/json
+
+# {
+# 	"email": "altintoprakali98@gmail.com",
+# 	"code": "727970"
+# }
+
+
+# POST http://localhost:3001/2fa/request
+# Content-Type: application/json
+
+# {
+# 	"email": "altintoprakali98@gmail.com"
+# }
+
 # POST http://localhost:3001/register
 # Content-Type: application/json
 
 # {
 # 	"username": "Ali",
-# 	"password": "123"
+# 	"password": "123",
+# 	"email": "altintoprakali98@gmail.com"
 # }
 
 # GET http://localhost:3002/profile?username=Ali
 # Content-Type: application/json
 
-GET http://localhost:3002/profile/1/friends
-Content-Type: application/json
+# GET http://localhost:3002/profile/1/friends
+# Content-Type: application/json
 
 # {
 # 	"friendId": "2"

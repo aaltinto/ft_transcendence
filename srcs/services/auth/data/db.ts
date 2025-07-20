@@ -15,7 +15,11 @@ function initDB() {
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE NOT NULL,
+      email TEXT UNIQUE NOT NULL,
       password TEXT NOT NULL,
+      two_fa_code TEXT DEFAULT NULL,
+      two_fa_expires TIMESTAMP DEFAULT NULL,
+      is_verified BOOLEAN DEFAULT FALSE,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
   `);
