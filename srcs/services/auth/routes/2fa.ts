@@ -3,6 +3,19 @@ import Database from "better-sqlite3";
 import bcrypt from "bcrypt";
 import xss from "xss";
 import { generate2FACode, send2FACode } from "../utils/emailService.js";
+import jwt from "jsonwebtoken";
+import { publishQueue } from "./message.js";
+import generateJWT from "../utils/token.js"
+
+export interface userInfo {
+	two_fa_code: string;
+	two_fa_expires: number;
+	is_verified: boolean;
+	username: string;
+	email: string;
+	id: string
+}
+
 
 export default function twoFactorAuth(
 	fastify: FastifyInstance,
@@ -35,6 +48,8 @@ export default function twoFactorAuth(
 		reply.send({ success: true });
 	});
 
+
+
 	fastify.post('/2fa/verify', async (request: FastifyRequest, reply: FastifyReply) => {
 		const { email, code } = request.body as { email: string, code: string };
 
@@ -45,7 +60,7 @@ export default function twoFactorAuth(
 			return reply.status(400).send({error: 'Code and email required'});
 		}
 
-		const user = await db.prepare('SELECT * FROM users WHERE email=?').get(email) as { two_fa_code: string, two_fa_expires: number, is_verified: boolean };
+		const user = await db.prepare('SELECT * FROM users WHERE email=?').get(email) as userInfo;
 		if (!user)
 			return reply.status(400).send({ error: 'User not found' });
 
@@ -59,11 +74,20 @@ export default function twoFactorAuth(
 
 		if (!user.is_verified) {
 			await db.prepare('UPDATE users SET two_fa_code=NULL, two_fa_expires=NULL, is_verified=TRUE WHERE email=?').run(email);
-			//get user service notified to register.
+			try {
+        	  await publishQueue('user_created', {username: user.username} );
+        	  console.log("Message sent");
+        	} catch (err) {
+        	  console.log("Error while sending messages:", err);
+			  return reply.status(200).send({success:'false', message:'User creation failed'});
+        	}
+			const token = generateJWT(user);
+			return reply.status(200).send({success:'true', message:'User created successfuly', token: token});
 		}
 		// Mark as verified, clear code
 		await db.prepare('UPDATE users SET two_fa_code=NULL, two_fa_expires=NULL WHERE email=?').run(email);
-		reply.send({ success: true });
+		const token = generateJWT(user);
+		reply.send({ success: true, token: token });
 	});
 
 }

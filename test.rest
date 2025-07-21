@@ -2,7 +2,7 @@
 # Content-Type: application/json
 
 # {
-#   "username": "Berhan",
+#   "username": "Ali",
 #   "password": "123"
 # }
 
@@ -11,9 +11,11 @@
 
 # {
 # 	"email": "altintoprakali98@gmail.com",
-# 	"code": "727970"
+# 	"code": "461350"
 # }
 
+# DELETE http://localhost:3002/profile/delete
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBbGkiLCJlbWFpbCI6ImFsdGludG9wcmFrYWxpOThAZ21haWwuY29tIiwiaWF0IjoxNzUzMTE0MTMxLCJleHAiOjE3NTMxMTc3MzF9.gxFuz3VV71OkbyYM8WafC3fFbjNtBDdR9mmVwxU-gQA
 
 # POST http://localhost:3001/2fa/request
 # Content-Type: application/json

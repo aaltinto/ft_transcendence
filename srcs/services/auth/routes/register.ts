@@ -4,15 +4,15 @@ import bcrypt from "bcrypt";
 import xss from "xss";
 import jwt from "jsonwebtoken";
 import { generate2FACode, send2FACode } from "../utils/emailService.js";
-import { publishQueue } from "./message.js";
 
-async function emailVerificationSend(email: string, db: Database.Database): any {
+
+async function emailVerificationSend(email: string, db: Database.Database, login:number): Promise<any> {
 
   const user = await db.prepare('SELECT two_fa_code, two_fa_expires, is_verified FROM users WHERE email=?').get(email) as { two_fa_code: string, two_fa_expires: number, is_verified: boolean };
 		if (!user)
 			return ({ error: 'User not found' });
 
-		if (user.is_verified) {
+		if (user.is_verified && !login) {
 			return ({error: 'User already verified'})
 		}
 
@@ -71,10 +71,11 @@ export default function registerRoute(
         );
 
         try {
-          await publishQueue('user_created', {username: user} );
-          console.log("Message sent");
+
+          await emailVerificationSend(mail, db, 0);
         } catch (err) {
-          console.log("Error while sending messages:", err);
+          console.log("Error sending message", err);
+          return reply.status(400).send({success: 'false', message: err});
         }
         return reply.status(201).send({ message: "User registered successfully" });
       } catch (err) {
@@ -124,7 +125,16 @@ export default function registerRoute(
           return reply.status(401).send({success: 'false', message: 'User needs to be verified'});
         }
 
-        reply.status(200).send({message: 'login Successful', username: dbUser.username})
+        try {
+
+          const ret = await emailVerificationSend(dbUser.email, db, 1);
+          console.log(dbUser.email, "verification send:", ret);
+        } catch (err) {
+          console.log("Error sending message", err);
+          return reply.status(400).send({success: 'false', message: err});
+        }
+
+        reply.status(200).send({message: 'Verification message send', })
       } catch (err) {
         console.log("Internal Server Error", err);
         reply.status(500).send({ error: "Internal Server Error" });

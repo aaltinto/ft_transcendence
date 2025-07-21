@@ -22,7 +22,7 @@ services:
     ports:
       - "3001:3001"
     env_file:
-      - .env
+      - ../.env
     volumes:
       - auth_data:/app/data
     networks:
@@ -35,7 +35,7 @@ services:
     build: services/user/.
     container_name: user
     env_file:
-      - .env
+      - ../.env
     ports:
       - "3002:3002"
     volumes:
