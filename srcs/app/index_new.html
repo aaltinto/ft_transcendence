@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <style>
+        body {
+            background: #22148bdb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .wrapper {
+            padding: 30px;
+            border: 1px solid azure;
+            border-radius: 12% 50% 50% 12%;
+            background: #510e9ddb;
+            width: 350px;
+            max-width: 90vw;
+        }
+        
+        .input-group {
+            margin: 20px 0;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgb(12, 46, 46);
+            color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        
+        .input-group input::placeholder {
+            color: #ccc;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: #45a049;
+        }
+        
+        .submit-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .dashboard {
+            color: white;
+            text-align: center;
+            background: #510e9ddb;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid azure;
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .success-message {
+            color: #4CAF50;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .info-message {
+            color: #ffd93d;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .comments-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .comment-form {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid #666;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 80px;
+            box-sizing: border-box;
+        }
+        
+        .comment-input::placeholder {
+            color: #ccc;
+        }
+        
+        .comment-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .comment-author {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .comment-date {
+            color: #ccc;
+            font-size: 12px;
+        }
+        
+        .comment-text {
+            color: white;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        
+        .no-comments {
+            text-align: center;
+            color: #ccc;
+            font-style: italic;
+            padding: 20px;
+        }
+        
+        .comments-header {
+            color: #ffd93d;
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #666;
+            padding-bottom: 10px;
+        }
+
+        /* Yeni Tasarım Geliştirmeleri */
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        .message.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+        
+        .message.error {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+        
+        .tab-navigation {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background: #95a5a6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background: #3498db;
+            transform: translateY(-2px);
+        }
+        
+        .tab-content {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        #comments {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        #users {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login Section -->
+    <div id="loginSection">
+        <h1>HOŞ GELDİNİZ</h1>
+        <div class="wrapper">
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" id="username" name="username" placeholder="Kullanıcı Adı" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" placeholder="Şifre" required>
+                </div>
+                <button type="submit" id="loginBtn" class="submit-btn">Giriş Yap</button>
+                <button type="button" id="showRegisterBtn" class="submit-btn" style="background: #ff6b6b; margin-top: 10px;">Kayıt Ol</button>
+                <div id="loginMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Section -->
+    <div id="registerSection" class="hidden">
+        <h1>KAYIT OL</h1>
+        <div class="wrapper">
+            <form id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="regUsername" name="username" placeholder="Kullanıcı Adı" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="regEmail" name="email" placeholder="Email Adresi" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="regPassword" name="password" placeholder="Şifre" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="regConfirmPassword" name="confirmPassword" placeholder="Şifre Tekrar" required>
+                </div>
+                <button type="submit" id="registerBtn" class="submit-btn">Kayıt Ol</button>
+                <button type="button" id="showLoginBtn" class="submit-btn" style="background: #666; margin-top: 10px;">Giriş Sayfasına Dön</button>
+                <div id="registerMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2FA Verification Section -->
+    <div id="twoFASection" class="hidden">
+        <h1>2FA DOĞRULAMASİ</h1>
+        <div class="wrapper">
+            <div class="info-message">
+                Email adresinize gönderilen 6 haneli kodu girin
+            </div>
+            <form id="twoFAForm">
+                <div class="input-group">
+                    <input type="text" id="verificationCode" placeholder="6 Haneli Kod" maxlength="6" required>
+                </div>
+                <button type="submit" id="verifyBtn" class="submit-btn">Doğrula</button>
+                <div id="twoFAMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboardSection" class="hidden">
+        <div class="dashboard">
+            <h1>🎉 HOŞ GELDİN!</h1>
+            <p>Başarıyla giriş yaptınız</p>
+            <p id="welcomeMessage"></p>
+            
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="comments">💬 Yorumlar</button>
+                <button class="tab-btn" data-tab="users">👥 Kullanıcılar</button>
+            </div>
+            
+            <!-- Comments Tab -->
+            <div id="comments" class="tab-content">
+                <h3 class="comments-header">💬 YORUMLAR</h3>
+                
+                <!-- Comment Form -->
+                <div class="comment-form">
+                    <textarea id="commentInput" class="comment-input" placeholder="Yorumunuzu buraya yazın... (Enter ile hızlı gönder)" maxlength="500"></textarea>
+                    <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span id="charCounter" style="color: #ccc; font-size: 12px;">0/500</span>
+                        <button onclick="addComment()" class="submit-btn" style="background: #27ae60; width: auto; padding: 8px 20px;">📝 Yorum Gönder</button>
+                    </div>
+                </div>
+                
+                <!-- Comment Message -->
+                <div id="commentMessage" class="message"></div>
+                
+                <!-- Comments List -->
+                <div id="commentsList">
+                    <!-- Comments will be dynamically loaded here -->
+                </div>
+            </div>
+            
+            <!-- Users Tab -->
+            <div id="users" class="tab-content hidden">
+                <h3 style="color: #ffd93d; text-align: center; margin-bottom: 20px;">👥 KAYITLI KULLANICILAR</h3>
+                <div id="usersList">
+                    <!-- Users will be dynamically loaded here -->
+                </div>
+            </div>
+            
+            <button onclick="logout()" class="submit-btn" style="margin-top: 20px; background: #e74c3c;">🚪 Çıkış Yap</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

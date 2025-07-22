@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <style>
+        body {
+            background: #22148bdb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .wrapper {
+            padding: 30px;
+            border: 1px solid azure;
+            border-radius: 12% 50% 50% 12%;
+            background: #510e9ddb;
+            width: 350px;
+            max-width: 90vw;
+        }
+        
+        .input-group {
+            margin: 20px 0;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgb(12, 46, 46);
+            color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        
+        .input-group input::placeholder {
+            color: #ccc;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: #45a049;
+        }
+        
+        .submit-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .dashboard {
+            color: white;
+            text-align: center;
+            background: #510e9ddb;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid azure;
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .success-message {
+            color: #4CAF50;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .info-message {
+            color: #ffd93d;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .comments-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .comment-form {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid #666;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 80px;
+            box-sizing: border-box;
+        }
+        
+        .comment-input::placeholder {
+            color: #ccc;
+        }
+        
+        .comment-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .comment-author {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .comment-date {
+            color: #ccc;
+            font-size: 12px;
+        }
+        
+        .comment-text {
+            color: white;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        
+        .no-comments {
+            text-align: center;
+            color: #ccc;
+            font-style: italic;
+            padding: 20px;
+        }
+        
+        .comments-header {
+            color: #ffd93d;
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #666;
+            padding-bottom: 10px;
+        }
+        .comment-button:hover {
+            background-color: #52ace8 !important ;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login Section -->
+    <div id="loginSection">
+        <h1>HOŞ GELDİNİZ</h1>
+        <div class="wrapper">
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" id="username" name="username" placeholder="Kullanıcı Adı" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" placeholder="Şifre" required>
+                </div>
+                <button type="submit" id="loginBtn" class="submit-btn">Giriş Yap</button>
+                <button type="button" id="showRegisterBtn" class="submit-btn" style="background: #ff6b6b; margin-top: 10px;">Kayıt Ol</button>
+                <div id="loginMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Section -->
+    <div id="registerSection" class="hidden">
+        <h1>KAYIT OL</h1>
+        <div class="wrapper">
+            <form id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="regUsername" name="username" placeholder="Kullanıcı Adı" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="regEmail" name="email" placeholder="Email Adresi" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="regPassword" name="password" placeholder="Şifre" required>
+                </div>
+                <button type="submit" id="registerBtn" class="submit-btn">Kayıt Ol</button>
+                <button type="button" id="showLoginBtn" class="submit-btn" style="background: #666; margin-top: 10px;">Giriş Sayfasına Dön</button>
+                <div id="registerMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2FA Verification Section -->
+    <div id="twoFASection" class="hidden">
+        <h1>2FA DOĞRULAMASİ</h1>
+        <div class="wrapper">
+            <div class="info-message">
+                Email adresinize gönderilen 6 haneli kodu girin
+            </div>
+            <form id="twoFAForm">
+                <div class="input-group">
+                    <input type="text" id="verificationCode" placeholder="6 Haneli Kod" maxlength="6" required>
+                </div>
+                <button type="submit" id="verifyBtn" class="submit-btn">Doğrula</button>
+                <div id="twoFAMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboardSection" class="hidden">
+        <div class="dashboard">
+            <!-- Profil Resmi Bölümü -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="position: relative; display: inline-block;">
+                    <img id="userAvatar" src="static/media/default.jpeg" alt="Profil Resmi" 
+                         style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+                    <button onclick="triggerFileUpload()" 
+                            style="position: absolute; bottom: 0; right: 0; background: #3498db; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 16px;"
+                            title="Profil resmini değiştir">📷</button>
+                </div>
+                <input type="file" id="avatarUpload" accept="image/*" style="display: none;" onchange="uploadAvatar()">
+                <div id="uploadStatus" style="margin-top: 10px; font-size: 14px;"></div>
+            </div>
+
+            <h1>🎉 HOŞ GELDİN!</h1>
+            <p>Başarıyla giriş yaptınız</p>
+            <p id="welcomeMessage"></p>
+            
+            <!-- Ana Sayfa Menü -->
+            <div style="margin: 20px 0;">
+                <button onclick="showComments()" class="submit-btn comment-button" style="background: #3498db; margin: 5px;">💬 Yorumlar</button>
+                <button onclick="showPongGame()" class="submit-btn" style="background: #e67e22; margin: 5px;">🎮 Pong Oyunu</button>
+                <button id="usersButton" onclick="showRegisteredUsers()" class="submit-btn" style="background: #9b59b6; margin: 5px;">👥 Kullanıcılar</button>
+                <button onclick="hideAllSections()" class="submit-btn" style="background: #95a5a6; margin: 5px;">🏠 Ana Sayfa</button>
+            </div>
+            
+            <!-- Yorumlar Bölümü -->
+            <div id="commentsSection" class="hidden comments-section">
+                <h3 class="comments-header">💬 YORUMLAR</h3>
+                
+                <!-- Yorum Yazma Formu -->
+                <div class="comment-form">
+                    <textarea id="commentInput" class="comment-input" placeholder="Yorumunuzu buraya yazın... (Ctrl+Enter ile hızlı gönder)" maxlength="500"></textarea>
+                    <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span id="charCounter" style="color: #ccc; font-size: 12px;">0/500</span>
+                        <button onclick="addComment()" class="submit-btn" style="background: #27ae60; width: auto; padding: 8px 20px;">📝 Yorum Gönder</button>
+                    </div>
+                </div>
+                
+                <!-- Yorumlar Listesi -->
+                <div id="commentsList">
+                    <!-- Yorumlar buraya dinamik olarak eklenecek -->
+                </div>
+            </div>
+            
+            <!-- Kullanıcılar Bölümü -->
+            <div id="usersList" class="hidden" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
+                <h3 style="color: #ffd93d; margin-bottom: 10px;">📝 Kayıtlı Kullanıcılar:</h3>
+                <div id="usersContent"></div>
+            </div>
+            
+            <!-- Pong Oyunu Bölümü -->
+            <div id="pongGameSection" class="hidden" style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                <h3 style="color: #ffd93d; margin-bottom: 15px;">🎮 PONG OYUNU</h3>
+                <div id="pongGameArea" style="position: relative; margin: 0 auto; background: #000; border: 2px solid #fff; border-radius: 5px;">
+                    <canvas id="pongCanvas" width="800" height="400" style="display: block; border-radius: 3px;"></canvas>
+                </div>
+                <div id="gameControls" style="margin: 15px 0; color: white;">
+                    <p><strong>Kontroller:</strong></p>
+                    <p>🎮 Sol Oyuncu: W/S tuşları | Sağ Oyuncu: ↑/↓ Ok tuşları</p>
+                    <button id="startGameBtn" onclick="startPongGame()" class="submit-btn" style="background: #27ae60; margin: 10px;">🚀 Oyunu Başlat</button>
+                    <button id="resetGameBtn" onclick="resetPongGame()" class="submit-btn" style="background: #e74c3c; margin: 10px;">🔄 Yeniden Başlat</button>
+                    <button onclick="pausePongGame()" class="submit-btn" style="background: #f39c12; margin: 10px;">⏸️ Duraklat</button>
+                </div>
+                <div id="gameScore" style="color: white; font-size: 18px; margin: 10px 0;">
+                    <span id="leftScore">Oyuncu 1: 0</span> | <span id="rightScore">Oyuncu 2: 0</span>
+                </div>
+                <div id="gameStatus" style="color: #ffd93d; margin: 10px 0; font-weight: bold;"></div>
+            </div>
+            
+            <button onclick="logout()" class="submit-btn" style="margin-top: 20px; background: #e74c3c;">🚪 Çıkış Yap</button>
+        </div>
+    </div>
+
+    <script>
+        // Backend API URL'leri
+        const AUTH_SERVICE = 'https://localhost:8443/auth';
+        const USER_SERVICE = 'https://localhost:8443/user';
+
+        // DOM elementleri
+        const loginSection = document.getElementById('loginSection');
+        const registerSection = document.getElementById('registerSection');
+        const twoFASection = document.getElementById('twoFASection');
+        const dashboardSection = document.getElementById('dashboardSection');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const twoFAForm = document.getElementById('twoFAForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const loginMessage = document.getElementById('loginMessage');
+        const registerMessage = document.getElementById('registerMessage');
+        const twoFAMessage = document.getElementById('twoFAMessage');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+
+        let currentUserEmail = '';
+
+        // Sayfa geçiş fonksiyonları
+        document.getElementById('showRegisterBtn').addEventListener('click', () => {
+            loginSection.classList.add('hidden');
+            registerSection.classList.remove('hidden');
+        });
+
+        document.getElementById('showLoginBtn').addEventListener('click', () => {
+            registerSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+        });
+
+        // Mesaj gösterme fonksiyonu
+        function showMessage(element, message, type = 'error') {
+            element.innerHTML = `<div class="${type}-message">${message}</div>`;
+            setTimeout(() => {
+                element.innerHTML = '';
+            }, 5000);
+        }
+
+        // Register form submit
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            
+            if (!username || !email || !password) {
+                showMessage(registerMessage, 'Tüm alanları doldurmanız gerekiyor');
+                return;
+            }
+
+            // Email format kontrolü
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage(registerMessage, 'Geçerli bir email adresi girin');
+                return;
+            }
+
+            // Şifre uzunluk kontrolü
+            if (password.length < 3) {
+                showMessage(registerMessage, 'Şifre en az 3 karakter olmalıdır');
+                return;
+            }
+
+            registerBtn.innerHTML = 'Kayıt yapılıyor...';
+            registerBtn.disabled = true;
+
+            try {
+                // Kayıt edilmiş kullanıcıları kontrol et
+                const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+                
+                // Kullanıcı adı veya email zaten var mı kontrol et
+                const existingUser = registeredUsers.find(u => u.username === username || u.email === email);
+                if (existingUser) {
+                    showMessage(registerMessage, 'Bu kullanıcı adı veya email adresi zaten kullanılıyor');
+                    registerBtn.innerHTML = 'Kayıt Ol';
+                    registerBtn.disabled = false;
+                    return;
+                }
+
+                // Yeni kullanıcıyı kaydet
+                const newUser = {
+                    username: username,
+                    email: email,
+                    password: password, // Gerçek uygulamada hashlenmelidir
+                    registeredAt: new Date().toISOString()
+                };
+
+                registeredUsers.push(newUser);
+                localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+
+                // Backend'e de kayıt yapmayı dene (opsiyonel)
+                try {
+                    const response = await fetch(`${AUTH_SERVICE}/register`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username, email, password }),
+                    });
+                    
+                    if (response.ok) {
+                        console.log('User also registered in backend');
+                    }
+                } catch (backendError) {
+                    console.log('Backend registration failed, but frontend registration successful');
+                }
+
+                showMessage(registerMessage, 'Kayıt başarılı! Şimdi giriş yapabilirsiniz.', 'success');
+                setTimeout(() => {
+                    registerSection.classList.add('hidden');
+                    loginSection.classList.remove('hidden');
+                    // Kullanıcı adını otomatik doldur
+                    document.getElementById('username').value = username;
+                    document.getElementById('regUsername').value = '';
+                    document.getElementById('regEmail').value = '';
+                    document.getElementById('regPassword').value = '';
+                }, 2000);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage(registerMessage, 'Kayıt sırasında hata oluştu. Lütfen tekrar deneyin.');
+            } finally {
+                registerBtn.innerHTML = 'Kayıt Ol';
+                registerBtn.disabled = false;
+            }
+        });
+
+        // Login form submit
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                showMessage(loginMessage, 'Kullanıcı adı ve şifre gerekli');
+                return;
+            }
+
+            loginBtn.innerHTML = 'Giriş yapılıyor...';
+            loginBtn.disabled = true;
+
+            try {
+
+
+                // Önce normal kullanıcı girişi için user-direct-login endpoint'ini dene
+                try {
+                    const userDirectResponse = await fetch(`${API_BASE_URL}/auth/user-direct-login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username, password }),
+                    });
+
+                    if (userDirectResponse.ok) {
+                        const userDirectData = await userDirectResponse.json();
+                        if (userDirectData.success && userDirectData.token) {
+                            // Normal kullanıcı girişi başarılı
+                            localStorage.setItem('token', userDirectData.token);
+                            localStorage.setItem('username', userDirectData.user.username);
+                            localStorage.setItem('userEmail', userDirectData.user.email);
+                            localStorage.setItem('userId', userDirectData.user.id);
+                            showMessage(loginMessage, 'Giriş başarılı! Hoş geldin ' + userDirectData.user.username + '!', 'success');
+                            setTimeout(() => {
+                                showDashboard();
+                            }, 1500);
+                            return;
+                        }
+                    }
+                } catch (userDirectError) {
+                    console.log('Normal kullanıcı girişi başarısız, admin girişi deneniyor...');
+                }
+
+                // Normal kullanıcı girişi başarısızsa, admin girişi için geleneksel login endpoint'ini dene
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.message === 'Verification message send') {
+                        // 2FA kodu gönderildi, 2FA sayfasını göster
+                        showMessage(loginMessage, 'Doğrulama kodu email adresinize gönderildi', 'success');
+                        setTimeout(() => {
+                            loginSection.classList.add('hidden');
+                            twoFASection.classList.remove('hidden');
+                        }, 2000);
+                    } else if (data.token) {
+                        // Direkt token alındıysa (admin kullanıcı)
+                        localStorage.setItem('token', data.token);
+                        localStorage.setItem('username', username);
+                        showMessage(loginMessage, 'Giriş başarılı! Yönlendiriliyorsunuz...', 'success');
+                        setTimeout(() => {
+                            showDashboard();
+                        }, 1500);
+                    }
+                } else {
+                    // Backend'den hata geldi, kullanıcı bulunamadı
+                    showMessage(loginMessage, 'Kullanıcı adı veya şifre hatalı');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Bağlantı hatası durumunda da kayıtlı kullanıcıları kontrol ettik yukarıda
+                showMessage(loginMessage, 'Kullanıcı adı veya şifre hatalı');
+            } finally {
+                loginBtn.innerHTML = 'Giriş Yap';
+                loginBtn.disabled = false;
+            }
+        });
+
+        // 2FA form submit
+        twoFAForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const code = document.getElementById('verificationCode').value.trim();
+            const username = document.getElementById('username').value.trim();
+            
+            if (!code || code.length !== 6) {
+                showMessage(twoFAMessage, '6 haneli kodu tam olarak girin');
+                return;
+            }
+
+            verifyBtn.innerHTML = 'Doğrulanıyor...';
+            verifyBtn.disabled = true;
+
+            try {
+                // Önce kullanıcının email adresini alalım
+                const userResponse = await fetch(`${API_BASE_URL}/user/profile?username=${username}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (!userResponse.ok) {
+                    throw new Error('Kullanıcı bilgileri alınamadı');
+                }
+
+                const userData = await userResponse.json();
+                const email = userData.email;
+
+                // 2FA doğrulaması yap
+                const response = await fetch(`${API_BASE_URL}/auth/2fa/verify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, code }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success === 'true') {
+                    // Token'ı kaydet ve ana sayfaya yönlendir
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('username', username);
+                    showMessage(twoFAMessage, 'Giriş başarılı! Yönlendiriliyorsunuz...', 'success');
+                    setTimeout(() => {
+                        showDashboard();
+                    }, 1500);
+                } else {
+                    showMessage(twoFAMessage, data.error || 'Doğrulama kodu hatalı');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage(twoFAMessage, 'Doğrulama sırasında hata oluştu');
+            } finally {
+                verifyBtn.innerHTML = 'Doğrula';
+                verifyBtn.disabled = false;
+            }
+        });
+
+        function showDashboard() {
+            const username = localStorage.getItem('username');
+            const userEmail = localStorage.getItem('userEmail');
+            twoFASection.classList.add('hidden');
+            registerSection.classList.add('hidden');
+            loginSection.classList.add('hidden');
+            dashboardSection.classList.remove('hidden');
+            
+            // Ana sayfada tüm bölümleri gizle
+            hideAllSections();
+            
+            let welcomeText = `Merhaba ${username}! 🚀`;
+            if (userEmail) {
+                welcomeText += `<br><small style="color: #ccc;">📧 ${userEmail}</small>`;
+            }
+            
+            // Admin kontrolü ve mesajı
+            const token = localStorage.getItem('token');
+            let isAdmin = false;
+            if (token && !token.startsWith('test_token_') && !token.startsWith('local_token_')) {
+                try {
+                    const base64Url = token.split('.')[1];
+                    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                    const decoded = JSON.parse(jsonPayload);
+                    isAdmin = decoded.is_admin === true;
+                } catch (error) {
+                    console.error('JWT decode error:', error);
+                }
+            }
+            
+            if (isAdmin) {
+                welcomeText += `<br><span style="color: #ffd93d;">👑 Admin Paneli</span>`;
+            }
+            
+            welcomeMessage.innerHTML = welcomeText;
+            
+            // Kullanıcı profil resmini yükle
+            loadUserAvatar();
+            
+            // Kullanıcılar butonunu admin olmayanlara gizle
+            const usersButton = document.getElementById('usersButton');
+            if (usersButton) {
+                if (isAdmin) {
+                    usersButton.style.display = 'inline-block';
+                } else {
+                    usersButton.style.display = 'none';
+                }
+            }
+            
+            // İlk kez açıldığında örnek yorumları ekle
+            initializeSampleComments();
+        }
+
+        function initializeSampleComments() {
+            const existingComments = localStorage.getItem('comments');
+            if (!existingComments) {
+                const sampleComments = [
+                    {
+                        id: 1,
+                        author: 'testuser',
+                        text: 'Merhaba! Bu harika bir platform! 😊',
+                        date: new Date(Date.now() - 3600000).toISOString(), // 1 saat önce
+                        likes: 5,
+                        likedBy: ['Admin', 'Demo User', 'user123', 'alice', 'bob'] // Örnek beğeniler
+                    },
+                    {
+                        id: 2,
+                        author: 'Admin',
+                        text: 'Hoş geldiniz! Fikirlerinizi paylaşmaktan çekinmeyin. 🎉',
+                        date: new Date(Date.now() - 7200000).toISOString(), // 2 saat önce
+                        likes: 3,
+                        likedBy: ['testuser', 'Demo User', 'alice']
+                    },
+                    {
+                        id: 3,
+                        author: 'Demo User',
+                        text: 'İlk yorumum! Bu sistem gerçekten kullanışlı görünüyor. 👍',
+                        date: new Date(Date.now() - 10800000).toISOString(), // 3 saat önce
+                        likes: 2,
+                        likedBy: ['testuser', 'Admin']
+                    }
+                ];
+                localStorage.setItem('comments', JSON.stringify(sampleComments));
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            localStorage.removeItem('userEmail');
+            dashboardSection.classList.add('hidden');
+            twoFASection.classList.add('hidden');
+            registerSection.classList.add('hidden');
+            loginSection.classList.remove('hidden');
+            
+            // Formu temizle
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('regUsername').value = '';
+            document.getElementById('regEmail').value = '';
+            document.getElementById('regPassword').value = '';
+            document.getElementById('verificationCode').value = '';
+            loginMessage.innerHTML = '';
+            registerMessage.innerHTML = '';
+            twoFAMessage.innerHTML = '';
+        }
+
+        // Yorum sistemi fonksiyonları
+        function showComments() {
+            hideAllSections();
+            document.getElementById('commentsSection').classList.remove('hidden');
+            loadComments();
+            
+            const currentUser = localStorage.getItem('username');
+            const commentForm = document.querySelector('.comment-form');
+            
+            // Eğer kullanıcı giriş yapmamışsa yorum formunu gizle
+            if (!currentUser) {
+                commentForm.innerHTML = `
+                    <div style="text-align: center; padding: 20px; background: rgba(255,0,0,0.1); border-radius: 8px; border: 1px solid #e74c3c;">
+                        <p style="color: #e74c3c; margin: 0;">🔒 Yorum yapabilmek için giriş yapmanız gerekiyor!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Kullanıcı giriş yaptıysa normal yorum formunu göster
+            commentForm.innerHTML = `
+                <textarea id="commentInput" class="comment-input" placeholder="Yorumunuzu buraya yazın... (Ctrl+Enter ile hızlı gönder)" maxlength="500"></textarea>
+                <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                    <span id="charCounter" style="color: #ccc; font-size: 12px;">0/500</span>
+                    <button onclick="addComment()" class="submit-btn" style="background: #27ae60; width: auto; padding: 8px 20px;">📝 Yorum Gönder</button>
+                </div>
+            `;
+            
+            // Karakter sayacını başlat
+            const commentInput = document.getElementById('commentInput');
+            const charCounter = document.getElementById('charCounter');
+            
+            if (commentInput && charCounter) {
+                commentInput.addEventListener('input', function() {
+                    const length = this.value.length;
+                    charCounter.textContent = `${length}/500`;
+                    charCounter.style.color = length > 450 ? '#e74c3c' : '#ccc';
+                });
+                
+                // Enter + Ctrl ile yorum gönder
+                commentInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && e.ctrlKey) {
+                        e.preventDefault();
+                        addComment();
+                    }
+                });
+            }
+        }
+
+        function hideAllSections() {
+            document.getElementById('commentsSection').classList.add('hidden');
+            document.getElementById('usersList').classList.add('hidden');
+            document.getElementById('pongGameSection').classList.add('hidden');
+            // Pong oyunu durdur
+            if (window.pongGame) {
+                window.pongGame.pause();
+            }
+        }
+
+        function addComment() {
+            const commentInput = document.getElementById('commentInput');
+            const commentText = commentInput.value.trim();
+            const currentUser = localStorage.getItem('username');
+            
+            // Kullanıcı girişi kontrolü
+            if (!currentUser) {
+                alert('Yorum yapabilmek için giriş yapmanız gerekiyor!');
+                return;
+            }
+            
+            if (!commentText) {
+                alert('Lütfen bir yorum yazın!');
+                return;
+            }
+            
+            if (commentText.length > 500) {
+                alert('Yorum 500 karakterden uzun olamaz!');
+                return;
+            }
+            
+            // Yeni yorum objesi oluştur
+            const newComment = {
+                id: Date.now(),
+                author: currentUser,
+                text: commentText,
+                date: new Date().toISOString(),
+                likes: 0,
+                likedBy: [] // Beğenen kullanıcıların listesi
+            };
+            
+            // Mevcut yorumları al
+            const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+            
+            // Yeni yorumu en başa ekle
+            comments.unshift(newComment);
+            
+            // Yorumları kaydet
+            localStorage.setItem('comments', JSON.stringify(comments));
+            
+            // Formu temizle
+            commentInput.value = '';
+            document.getElementById('charCounter').textContent = '0/500';
+            
+            // Yorumları yeniden yükle
+            loadComments();
+            
+            // Başarı mesajı
+            showCommentMessage('Yorumunuz başarıyla eklendi! 🎉', 'success');
+        }
+
+        function loadComments() {
+            const comments = []; // Yorumlar silindi - her zaman boş array döndür
+            const commentsList = document.getElementById('commentsList');
+            const currentUser = localStorage.getItem('username');
+            
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<div class="no-comments">🤔 Henüz yorum yapılmamış. İlk yorumu sen yap!</div>';
+                return;
+            }
+            
+            let commentsHtml = '';
+            comments.forEach(comment => {
+                const commentDate = new Date(comment.date);
+                const timeAgo = getTimeAgo(commentDate);
+                
+                // Beğeni durumunu kontrol et
+                const likedBy = comment.likedBy || [];
+                const isLikedByCurrentUser = likedBy.includes(currentUser);
+                const likeButtonText = isLikedByCurrentUser ? '💖 Beğendin' : '❤️ Beğen';
+                const likeButtonStyle = isLikedByCurrentUser ? 
+                    'background: #e74c3c; color: white; padding: 4px 8px; border-radius: 3px;' : 
+                    'background: none; border: none; color: #e74c3c; cursor: pointer;';
+                
+                // Eğer kullanıcı giriş yapmamışsa beğeni butonunu gizle
+                const likeButton = currentUser ? 
+                    `<button onclick="likeComment(${comment.id})" style="${likeButtonStyle} font-size: 12px;" ${isLikedByCurrentUser ? 'disabled' : ''}>
+                        ${likeButtonText} (${comment.likes})
+                    </button>` : 
+                    `<span style="color: #e74c3c; font-size: 12px;">❤️ ${comment.likes} Beğeni</span>`;
+                
+                commentsHtml += `
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <span class="comment-author">👤 ${comment.author}</span>
+                            <span class="comment-date">🕒 ${timeAgo}</span>
+                        </div>
+                        <div class="comment-text">${escapeHtml(comment.text)}</div>
+                        <div style="margin-top: 8px;">
+                            ${likeButton}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            commentsList.innerHTML = commentsHtml;
+        }
+
+        function likeComment(commentId) {
+            const currentUser = localStorage.getItem('username');
+            
+            // Kullanıcı girişi kontrolü
+            if (!currentUser) {
+                alert('Beğeni yapabilmek için giriş yapmanız gerekiyor!');
+                return;
+            }
+            
+            const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+            const comment = comments.find(c => c.id === commentId);
+            
+            if (!comment) {
+                return;
+            }
+            
+            // likedBy array'i yoksa oluştur
+            if (!comment.likedBy) {
+                comment.likedBy = [];
+            }
+            
+            // Kullanıcı daha önce beğenmiş mi kontrol et
+            if (comment.likedBy.includes(currentUser)) {
+                showCommentMessage('Bu yorumu zaten beğenmişsiniz! 😊', 'info');
+                return;
+            }
+            
+            // Beğeniyi ekle
+            comment.likes = (comment.likes || 0) + 1;
+            comment.likedBy.push(currentUser);
+            
+            // Değişiklikleri kaydet
+            localStorage.setItem('comments', JSON.stringify(comments));
+            
+            // Yorumları yeniden yükle
+            loadComments();
+            
+            // Başarı mesajı
+            showCommentMessage('Yorumu beğendiniz! ❤️', 'success');
+        }
+
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Az önce';
+            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} dakika önce`;
+            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} saat önce`;
+            if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} gün önce`;
+            
+            return date.toLocaleDateString('tr-TR');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showCommentMessage(message, type = 'success') {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${type}-message`;
+            messageDiv.textContent = message;
+            messageDiv.style.position = 'fixed';
+            messageDiv.style.top = '20px';
+            messageDiv.style.right = '20px';
+            messageDiv.style.background = type === 'success' ? '#27ae60' : type === 'info' ? '#3498db' : '#e74c3c';
+            messageDiv.style.color = 'white';
+            messageDiv.style.padding = '10px 20px';
+            messageDiv.style.borderRadius = '5px';
+            messageDiv.style.zIndex = '9999';
+            messageDiv.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+            
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                if (document.body.contains(messageDiv)) {
+                    document.body.removeChild(messageDiv);
+                }
+            }, 3000);
+        }
+
+        function showRegisteredUsers() {
+            // Admin kontrolü
+            const token = localStorage.getItem('token');
+            if (!token || token.startsWith('test_token_') || token.startsWith('local_token_')) {
+                showAdminOnlyMessage();
+                return;
+            }
+            
+            // JWT decode (basit implementasyon)
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                const decoded = JSON.parse(jsonPayload);
+                
+                if (!decoded.is_admin) {
+                    showAdminOnlyMessage();
+                    return;
+                }
+            } catch (error) {
+                showAdminOnlyMessage();
+                return;
+            }
+            
+            hideAllSections();
+            const usersList = document.getElementById('usersList');
+            const usersContent = document.getElementById('usersContent');
+            
+            // Loading mesajı
+            usersContent.innerHTML = '<p style="color: #ccc;">Kullanıcılar yükleniyor...</p>';
+            usersList.classList.remove('hidden');
+            
+            // Backend'den kullanıcıları al
+            fetch(`${API_BASE_URL}/user/admin/users`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Backend kullanıcıları alınamadı');
+                }
+            })
+            .then(data => {
+                displayBackendUsers(data.users);
+            })
+            .catch(error => {
+                console.error('Error fetching backend users:', error);
+                displayLocalUsers();
+            });
+        }
+        
+        function showAdminOnlyMessage() {
+            const messageDiv = document.createElement('div');
+            messageDiv.innerHTML = 'Bu özelliğe sadece admin kullanıcıları erişebilir! 🔒';
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #e74c3c;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                z-index: 10000;
+                font-weight: bold;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            `;
+            document.body.appendChild(messageDiv);
+            setTimeout(() => {
+                if (document.body.contains(messageDiv)) {
+                    document.body.removeChild(messageDiv);
+                }
+            }, 3000);
+        }
+        
+        function displayBackendUsers(backendUsers) {
+            const usersContent = document.getElementById('usersContent');
+            const currentUsername = localStorage.getItem('username');
+            
+            if (backendUsers.length === 0) {
+                usersContent.innerHTML = '<p style="color: #ccc;">Henüz kayıtlı kullanıcı yok.</p>';
+                return;
+            }
+            
+            let usersHtml = '<h4 style="color: #ffd93d; margin-bottom: 10px;">🌐 Backend Kullanıcıları:</h4>';
+            backendUsers.forEach((user, index) => {
+                const createdDate = new Date(user.created_at).toLocaleString('tr-TR');
+                const lastActiveDate = user.last_active ? new Date(user.last_active).toLocaleString('tr-TR') : 'Hiç';
+                const isCurrentUser = user.username === currentUsername;
+                const userClass = isCurrentUser ? 'style="background: rgba(52, 152, 219, 0.3); border: 1px solid #3498db;"' : '';
+                
+                usersHtml += `
+                    <div ${userClass} style="background: rgba(255,255,255,0.1); padding: 10px; margin: 5px 0; border-radius: 5px;">
+                        <strong style="color: #4CAF50;">${index + 1}. ${user.username}</strong>
+                        ${isCurrentUser ? '<span style="color: #3498db; font-size: 12px;"> (Sen)</span>' : ''}
+                        <br>
+                        <small style="color: #ccc;">🆔 ID: ${user.id}</small><br>
+                        <small style="color: #ccc;">📊 Durum: ${user.status || 'Aktif değil'}</small><br>
+                        <small style="color: #ccc;">🎮 Oynanan Maç: ${user.matches_played || 0}</small><br>
+                        <small style="color: #ccc;">🏆 Kazanılan Maç: ${user.matches_won || 0}</small><br>
+                        <small style="color: #ffd93d;">📅 Kayıt: ${createdDate}</small><br>
+                        <small style="color: #ccc;">⏰ Son Aktiflik: ${lastActiveDate}</small>
+                    </div>
+                `;
+            });
+            
+            usersContent.innerHTML = usersHtml;
+        }
+        
+        function displayLocalUsers() {
+            const usersContent = document.getElementById('usersContent');
+            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+            
+            let usersHtml = '<h4 style="color: #ffd93d; margin-bottom: 10px;">💾 Yerel Kullanıcılar:</h4>';
+            
+            if (registeredUsers.length === 0) {
+                usersHtml += '<p style="color: #ccc;">Henüz yerel kayıtlı kullanıcı yok.</p>';
+            } else {
+                registeredUsers.forEach((user, index) => {
+                    const registeredDate = new Date(user.registeredAt).toLocaleString('tr-TR');
+                    const isCurrentUser = user.username === localStorage.getItem('username');
+                    const userClass = isCurrentUser ? 'style="background: rgba(52, 152, 219, 0.3); border: 1px solid #3498db;"' : '';
+                    
+                    usersHtml += `
+                        <div ${userClass} style="background: rgba(255,255,255,0.1); padding: 10px; margin: 5px 0; border-radius: 5px;">
+                            <strong style="color: #4CAF50;">${index + 1}. ${user.username}</strong>
+                            ${isCurrentUser ? '<span style="color: #3498db; font-size: 12px;"> (Sen)</span>' : ''}
+                            <br>
+                            <small style="color: #ccc;">� ${user.email}</small><br>
+                            <small style="color: #ffd93d;">� ${registeredDate}</small>
+                        </div>
+                    `;
+                });
+            }
+            
+            usersContent.innerHTML = usersHtml;
+        }
+
+        function hideRegisteredUsers() {
+            document.getElementById('usersList').classList.add('hidden');
+        }
+
+        // Profil resmi yükleme fonksiyonları
+        function triggerFileUpload() {
+            document.getElementById('avatarUpload').click();
+        }
+
+        function loadUserAvatar() {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            fetch(`${API_BASE_URL}/user/profile/me`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.profile && data.profile.avatar_url) {
+                    const avatarImg = document.getElementById('userAvatar');
+                    avatarImg.src = `${API_BASE_URL}/${data.profile.avatar_url}`;
+                }
+            })
+            .catch(error => {
+                console.error('Avatar yükleme hatası:', error);
+            });
+        }
+
+        function uploadAvatar() {
+            const fileInput = document.getElementById('avatarUpload');
+            const file = fileInput.files[0];
+            const uploadStatus = document.getElementById('uploadStatus');
+            
+            if (!file) return;
+
+            // Dosya tipi kontrolü
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+            if (!allowedTypes.includes(file.type)) {
+                uploadStatus.innerHTML = '<span style="color: #e74c3c;">❌ Sadece JPEG, PNG ve GIF dosyaları kabul edilir!</span>';
+                return;
+            }
+
+            // Dosya boyutu kontrolü (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                uploadStatus.innerHTML = '<span style="color: #e74c3c;">❌ Dosya boyutu 5MB\'dan küçük olmalıdır!</span>';
+                return;
+            }
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                uploadStatus.innerHTML = '<span style="color: #e74c3c;">❌ Giriş yapmalısınız!</span>';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('avatar', file);
+
+            uploadStatus.innerHTML = '<span style="color: #f39c12;">⏳ Yükleniyor...</span>';
+
+            fetch(`${API_BASE_URL}/user/profile/upload-avatar`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    uploadStatus.innerHTML = '<span style="color: #27ae60;">✅ Profil resmi başarıyla güncellendi!</span>';
+                    const avatarImg = document.getElementById('userAvatar');
+                    avatarImg.src = `${API_BASE_URL}/${data.avatar_url}?t=${Date.now()}`; // Cache busting
+                    
+                    // 3 saniye sonra mesajı temizle
+                    setTimeout(() => {
+                        uploadStatus.innerHTML = '';
+                    }, 3000);
+                } else {
+                    uploadStatus.innerHTML = `<span style="color: #e74c3c;">❌ ${data.message || 'Yükleme başarısız!'}</span>`;
+                }
+            })
+            .catch(error => {
+                console.error('Upload error:', error);
+                uploadStatus.innerHTML = '<span style="color: #e74c3c;">❌ Yükleme sırasında hata oluştu!</span>';
+            });
+
+            // Input'u temizle
+            fileInput.value = '';
+        }
+
+        // Pong Game Implementation
+        class PongGame {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                if (!this.canvas) {
+                    throw new Error(`Canvas with id '${canvasId}' not found`);
+                }
+                
+                this.ctx = this.canvas.getContext('2d');
+                if (!this.ctx) {
+                    throw new Error('Failed to get 2D rendering context');
+                }
+
+                this.keys = {};
+                this.animationId = null;
+                this.WINNING_SCORE = 5;
+
+                this.initializeGame();
+                this.setupEventListeners();
+            }
+
+            initializeGame() {
+                // Game state
+                this.gameState = {
+                    isRunning: false,
+                    isPaused: false,
+                    gameStarted: false,
+                    winner: null
+                };
+
+                // Left player (Player 1)
+                this.leftPlayer = {
+                    position: { x: 20, y: this.canvas.height / 2 - 50 },
+                    size: { width: 10, height: 100 },
+                    speed: 5,
+                    score: 0,
+                    color: '#ffffff'
+                };
+
+                // Right player (Player 2)
+                this.rightPlayer = {
+                    position: { x: this.canvas.width - 30, y: this.canvas.height / 2 - 50 },
+                    size: { width: 10, height: 100 },
+                    speed: 5,
+                    score: 0,
+                    color: '#ffffff'
+                };
+
+                // Ball
+                this.ball = {
+                    position: { x: this.canvas.width / 2, y: this.canvas.height / 2 },
+                    velocity: { x: 3, y: 2 },
+                    size: 8,
+                    speed: 3,
+                    color: '#ffffff'
+                };
+
+                this.updateScoreDisplay();
+                this.updateGameStatus('Oyunu başlatmak için "Oyunu Başlat" butonuna basın');
+            }
+
+            setupEventListeners() {
+                // Keyboard event listeners
+                document.addEventListener('keydown', (e) => {
+                    this.keys[e.key.toLowerCase()] = true;
+                });
+
+                document.addEventListener('keyup', (e) => {
+                    this.keys[e.key.toLowerCase()] = false;
+                });
+            }
+
+            updatePlayers() {
+                // Left player controls (W/S)
+                if (this.keys['w'] && this.leftPlayer.position.y > 0) {
+                    this.leftPlayer.position.y -= this.leftPlayer.speed;
+                }
+                if (this.keys['s'] && this.leftPlayer.position.y < this.canvas.height - this.leftPlayer.size.height) {
+                    this.leftPlayer.position.y += this.leftPlayer.speed;
+                }
+
+                // Right player controls (Arrow keys)
+                if (this.keys['arrowup'] && this.rightPlayer.position.y > 0) {
+                    this.rightPlayer.position.y -= this.rightPlayer.speed;
+                }
+                if (this.keys['arrowdown'] && this.rightPlayer.position.y < this.canvas.height - this.rightPlayer.size.height) {
+                    this.rightPlayer.position.y += this.rightPlayer.speed;
+                }
+            }
+
+            updateBall() {
+                // Move ball
+                this.ball.position.x += this.ball.velocity.x;
+                this.ball.position.y += this.ball.velocity.y;
+
+                // Ball collision with top and bottom walls
+                if (this.ball.position.y <= this.ball.size || this.ball.position.y >= this.canvas.height - this.ball.size) {
+                    this.ball.velocity.y = -this.ball.velocity.y;
+                }
+
+                // Ball collision with left paddle
+                if (this.ball.position.x <= this.leftPlayer.position.x + this.leftPlayer.size.width &&
+                    this.ball.position.y >= this.leftPlayer.position.y &&
+                    this.ball.position.y <= this.leftPlayer.position.y + this.leftPlayer.size.height) {
+                    this.ball.velocity.x = Math.abs(this.ball.velocity.x);
+                    // Add some randomness to the ball direction
+                    this.ball.velocity.y += (Math.random() - 0.5) * 2;
+                }
+
+                // Ball collision with right paddle
+                if (this.ball.position.x >= this.rightPlayer.position.x - this.ball.size &&
+                    this.ball.position.y >= this.rightPlayer.position.y &&
+                    this.ball.position.y <= this.rightPlayer.position.y + this.rightPlayer.size.height) {
+                    this.ball.velocity.x = -Math.abs(this.ball.velocity.x);
+                    // Add some randomness to the ball direction
+                    this.ball.velocity.y += (Math.random() - 0.5) * 2;
+                }
+
+                // Ball out of bounds (scoring)
+                if (this.ball.position.x < 0) {
+                    this.rightPlayer.score++;
+                    this.resetBall();
+                    this.updateScoreDisplay();
+                    this.checkWinner();
+                } else if (this.ball.position.x > this.canvas.width) {
+                    this.leftPlayer.score++;
+                    this.resetBall();
+                    this.updateScoreDisplay();
+                    this.checkWinner();
+                }
+            }
+
+            resetBall() {
+                this.ball.position.x = this.canvas.width / 2;
+                this.ball.position.y = this.canvas.height / 2;
+                // Random direction
+                this.ball.velocity.x = (Math.random() > 0.5 ? 1 : -1) * this.ball.speed;
+                this.ball.velocity.y = (Math.random() - 0.5) * 4;
+            }
+
+            checkWinner() {
+                if (this.leftPlayer.score >= this.WINNING_SCORE) {
+                    this.gameState.winner = 'Oyuncu 1';
+                    this.gameState.isRunning = false;
+                    this.updateGameStatus('🎉 Oyuncu 1 Kazandı! Oyun bitti.');
+                } else if (this.rightPlayer.score >= this.WINNING_SCORE) {
+                    this.gameState.winner = 'Oyuncu 2';
+                    this.gameState.isRunning = false;
+                    this.updateGameStatus('🎉 Oyuncu 2 Kazandı! Oyun bitti.');
+                }
+            }
+
+            drawPlayer(player) {
+                this.ctx.fillStyle = player.color;
+                this.ctx.fillRect(player.position.x, player.position.y, player.size.width, player.size.height);
+            }
+
+            drawBall() {
+                this.ctx.fillStyle = this.ball.color;
+                this.ctx.beginPath();
+                this.ctx.arc(this.ball.position.x, this.ball.position.y, this.ball.size, 0, Math.PI * 2);
+                this.ctx.fill();
+            }
+
+            drawCenterLine() {
+                this.ctx.strokeStyle = '#ffffff';
+                this.ctx.setLineDash([5, 5]);
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.canvas.width / 2, 0);
+                this.ctx.lineTo(this.canvas.width / 2, this.canvas.height);
+                this.ctx.stroke();
+                this.ctx.setLineDash([]);
+            }
+
+            render() {
+                // Clear canvas
+                this.ctx.fillStyle = '#000000';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Draw center line
+                this.drawCenterLine();
+
+                // Draw players
+                this.drawPlayer(this.leftPlayer);
+                this.drawPlayer(this.rightPlayer);
+
+                // Draw ball
+                this.drawBall();
+            }
+
+            gameLoop() {
+                if (!this.gameState.isRunning || this.gameState.isPaused) {
+                    return;
+                }
+
+                this.updatePlayers();
+                this.updateBall();
+                this.render();
+
+                if (this.gameState.isRunning) {
+                    this.animationId = requestAnimationFrame(() => this.gameLoop());
+                }
+            }
+
+            updateScoreDisplay() {
+                const leftScoreElement = document.getElementById('leftScore');
+                const rightScoreElement = document.getElementById('rightScore');
+                
+                if (leftScoreElement) {
+                    leftScoreElement.textContent = `Oyuncu 1: ${this.leftPlayer.score}`;
+                }
+                if (rightScoreElement) {
+                    rightScoreElement.textContent = `Oyuncu 2: ${this.rightPlayer.score}`;
+                }
+            }
+
+            updateGameStatus(message) {
+                const statusElement = document.getElementById('gameStatus');
+                if (statusElement) {
+                    statusElement.textContent = message;
+                }
+            }
+
+            start() {
+                if (!this.gameState.gameStarted) {
+                    this.gameState.gameStarted = true;
+                    this.updateGameStatus('Oyun başladı! İyi eğlenceler! 🚀');
+                }
+                
+                this.gameState.isRunning = true;
+                this.gameState.isPaused = false;
+                this.gameLoop();
+            }
+
+            pause() {
+                this.gameState.isPaused = !this.gameState.isPaused;
+                if (!this.gameState.isPaused && this.gameState.isRunning) {
+                    this.updateGameStatus('Oyun devam ediyor...');
+                    this.gameLoop();
+                } else {
+                    this.updateGameStatus('Oyun duraklatıldı ⏸️');
+                }
+            }
+
+            reset() {
+                this.gameState.isRunning = false;
+                this.gameState.isPaused = false;
+                this.gameState.gameStarted = false;
+                this.gameState.winner = null;
+                
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                    this.animationId = null;
+                }
+
+                this.initializeGame();
+                this.render();
+            }
+
+            destroy() {
+                this.gameState.isRunning = false;
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+            }
+        }
+
+        // Global Pong game variable
+        window.pongGame = null;
+
+        // Pong game functions
+        function showPongGame() {
+            // Hide all sections first
+            document.getElementById('commentsSection').classList.add('hidden');
+            document.getElementById('usersList').classList.add('hidden');
+            
+            // Show Pong game section
+            const pongSection = document.getElementById('pongGameSection');
+            if (pongSection) {
+                pongSection.classList.remove('hidden');
+            }
+            
+            // Initialize Pong game if not already done
+            if (!window.pongGame) {
+                try {
+                    window.pongGame = new PongGame('pongCanvas');
+                } catch (error) {
+                    console.error('Error initializing Pong game:', error);
+                    const statusElement = document.getElementById('gameStatus');
+                    if (statusElement) {
+                        statusElement.textContent = 'Oyun yüklenirken hata oluştu!';
+                    }
+                }
+            }
+        }
+
+        function startPongGame() {
+            if (window.pongGame) {
+                window.pongGame.start();
+            }
+        }
+
+        function pausePongGame() {
+            if (window.pongGame) {
+                window.pongGame.pause();
+            }
+        }
+
+        function resetPongGame() {
+            if (window.pongGame) {
+                window.pongGame.reset();
+            }
+        }
+
+        // Sayfa yüklendiğinde token kontrolü
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                showDashboard();
+            }
+        });
+    </script>
+
+    <script type="module" src="script.ts"></script>
+</body>
+</html>
