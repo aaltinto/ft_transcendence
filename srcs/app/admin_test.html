@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Test Sayfası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .admin-info {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .login-info {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .test-btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-btn:hover {
+            background: #0056b3;
+        }
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Admin Sistemi Test Sayfası</h1>
+        
+        <div class="admin-info">
+            <h3>👑 Admin Giriş Bilgileri</h3>
+            <p><strong>Kullanıcı Adı:</strong> superadmin</p>
+            <p><strong>Şifre:</strong> SuperAdmin2024!</p>
+            <p><strong>Email:</strong> superadmin@transcendence.local</p>
+        </div>
+
+        <div class="login-info">
+            <h3>📝 Test Adımları</h3>
+            <ol>
+                <li>Ana sayfaya gidin: <a href="/index.html" target="_blank">Ana Sayfa</a></li>
+                <li>Admin bilgileri ile giriş yapın</li>
+                <li>2FA kodu gelirse girin (development ortamında console'da görebilirsiniz)</li>
+                <li>Dashboard'da "👑 Admin Paneli" yazısını görmelisiniz</li>
+                <li>"👥 Kullanıcılar" butonuna tıklayın</li>
+                <li>Backend kullanıcı listesini görmelisiniz</li>
+            </ol>
+        </div>
+
+        <h3>🧪 API Test Araçları</h3>
+        <button class="test-btn" onclick="testAdminExists()">Admin Var mı Kontrol</button>
+        <button class="test-btn" onclick="createAdmin()">Manuel Admin Oluştur</button>
+        <button class="test-btn" onclick="testAdminDirectLogin()">Admin Direkt Login</button>
+        <button class="test-btn" onclick="testLogin()">Admin Login Test</button>
+        <button class="test-btn" onclick="testUsersList()">Kullanıcı Listesi Test</button>
+        <button class="test-btn" onclick="testTokenDecode()">Token Decode Test</button>
+        <button class="test-btn" onclick="clearResults()">Sonuçları Temizle</button>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = window.location.origin;
+        
+        function addResult(title, content, type = 'info') {
+            const results = document.getElementById('results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result';
+            resultDiv.innerHTML = `<strong>${title}:</strong>\n${content}`;
+            if (type === 'error') {
+                resultDiv.style.background = '#f8d7da';
+                resultDiv.style.border = '1px solid #f5c6cb';
+            } else if (type === 'success') {
+                resultDiv.style.background = '#d4edda';
+                resultDiv.style.border = '1px solid #c3e6cb';
+            }
+            results.appendChild(resultDiv);
+        }
+
+        async function testAdminExists() {
+            try {
+                addResult('Admin Kontrol', 'Admin kullanıcısı varlığı kontrol ediliyor...');
+                
+                const response = await fetch(`${API_BASE_URL}/auth/debug/admin-check`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    addResult('Admin Kontrol Başarılı', JSON.stringify(data, null, 2), 'success');
+                } else {
+                    addResult('Admin Kontrol Hatası', JSON.stringify(data, null, 2), 'error');
+                }
+            } catch (error) {
+                addResult('Admin Kontrol Test Hatası', error.message, 'error');
+            }
+        }
+
+        async function createAdmin() {
+            try {
+                addResult('Manuel Admin Oluşturma', 'Manuel admin oluşturuluyor...');
+                
+                const response = await fetch(`${API_BASE_URL}/auth/debug/create-admin`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    addResult('Manuel Admin Oluşturma Başarılı', JSON.stringify(data, null, 2), 'success');
+                } else {
+                    addResult('Manuel Admin Oluşturma Hatası', JSON.stringify(data, null, 2), 'error');
+                }
+            } catch (error) {
+                addResult('Manuel Admin Oluşturma Test Hatası', error.message, 'error');
+            }
+        }
+
+        async function testAdminDirectLogin() {
+            try {
+                addResult('Admin Direkt Login Test', 'Direkt admin girişi test ediliyor...');
+                
+                const response = await fetch(`${API_BASE_URL}/auth/admin-direct-login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        username: 'superadmin', 
+                        password: 'SuperAdmin2024!' 
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (response.ok && data.token) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('username', data.user.username);
+                    addResult('Admin Direkt Login Başarılı', JSON.stringify(data, null, 2), 'success');
+                    addResult('Token Kaydedildi', 'Token localStorage\'a kaydedildi. Artık diğer testleri yapabilirsiniz.', 'success');
+                } else {
+                    addResult('Admin Direkt Login Hatası', JSON.stringify(data, null, 2), 'error');
+                }
+            } catch (error) {
+                addResult('Direkt Login Test Hatası', error.message, 'error');
+            }
+        }
+
+        async function testLogin() {
+            try {
+                addResult('Admin Login Test', 'Giriş testi başlatılıyor...');
+                
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        username: 'superadmin', 
+                        password: 'SuperAdmin2024!' 
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    addResult('Admin Login Başarılı', JSON.stringify(data, null, 2), 'success');
+                } else {
+                    addResult('Admin Login Hatası', JSON.stringify(data, null, 2), 'error');
+                }
+            } catch (error) {
+                addResult('Login Test Hatası', error.message, 'error');
+            }
+        }
+
+        async function testUsersList() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                addResult('Token Hatası', 'Önce giriş yapmalısınız!', 'error');
+                return;
+            }
+
+            try {
+                addResult('Kullanıcı Listesi Test', 'Kullanıcı listesi alınıyor...');
+                
+                const response = await fetch(`${API_BASE_URL}/user/admin/users`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    addResult('Kullanıcı Listesi Başarılı', JSON.stringify(data, null, 2), 'success');
+                } else {
+                    addResult('Kullanıcı Listesi Hatası', JSON.stringify(data, null, 2), 'error');
+                }
+            } catch (error) {
+                addResult('Kullanıcı Listesi Test Hatası', error.message, 'error');
+            }
+        }
+
+        function testTokenDecode() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                addResult('Token Bulunamadı', 'LocalStorage\'da token yok!', 'error');
+                return;
+            }
+
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                const decoded = JSON.parse(jsonPayload);
+                
+                addResult('Token Decode Başarılı', JSON.stringify(decoded, null, 2), 'success');
+                
+                if (decoded.is_admin) {
+                    addResult('Admin Kontrolü', '✅ Bu kullanıcı admin yetkilerine sahip!', 'success');
+                } else {
+                    addResult('Admin Kontrolü', '❌ Bu kullanıcı admin değil!', 'error');
+                }
+            } catch (error) {
+                addResult('Token Decode Hatası', error.message, 'error');
+            }
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+
+        // Sayfa yüklendiğinde mevcut token'ı kontrol et
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                addResult('Mevcut Token Bulundu', 'LocalStorage\'da token mevcut. Token decode test edebilirsiniz.', 'info');
+            } else {
+                addResult('Token Bulunamadı', 'Henüz giriş yapılmamış. Ana sayfadan giriş yapın.', 'info');
+            }
+        });
+    </script>
+</body>
+</html>

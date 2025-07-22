@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    
+</head>
+
+<body>
+    <!-- Login Section -->
+    <div id="loginSection">
+        <h1>HOŞ GELDİNİZ</h1>
+        <div class="wrapper">
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" id="username" name="username" placeholder="Kullanıcı Adı" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" placeholder="Şifre" required>
+                </div>
+                <button type="submit" id="loginBtn" class="submit-btn">Giriş Yap</button>
+                <button type="button" id="showRegisterBtn" class="submit-btn" style="background: #ff6b6b; margin-top: 10px;">Kayıt Ol</button>
+                <div id="loginMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Section -->
+    <div id="registerSection" class="hidden">
+        <h1>KAYIT OL</h1>
+        <div class="wrapper">
+            <form id="registerForm">
+                <div class="input-group">
+                    <input type="text" id="regUsername" name="username" placeholder="Kullanıcı Adı" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="regEmail" name="email" placeholder="Email Adresi" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="regPassword" name="password" placeholder="Şifre" required>
+                </div>
+                <button type="submit" id="registerBtn" class="submit-btn">Kayıt Ol</button>
+                <button type="button" id="showLoginBtn" class="submit-btn" style="background: #666; margin-top: 10px;">Giriş Sayfasına Dön</button>
+                <div id="registerMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2FA Verification Section -->
+    <div id="twoFASection" class="hidden">
+        <h1>2FA DOĞRULAMASİ</h1>
+        <div class="wrapper">
+            <div class="info-message">
+                Email adresinize gönderilen 6 haneli kodu girin
+            </div>
+            <form id="twoFAForm">
+                <div class="input-group">
+                    <input type="text" id="verificationCode" placeholder="6 Haneli Kod" maxlength="6" required>
+                </div>
+                <button type="submit" id="verifyBtn" class="submit-btn">Doğrula</button>
+                <div id="twoFAMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboardSection" class="hidden">
+        <div class="dashboard">
+            <!-- Profil Resmi Bölümü -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="position: relative; display: inline-block;">
+                    <img id="userAvatar" src="static/media/default.jpeg" alt="Profil Resmi" 
+                         style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+                    <button onclick="triggerFileUpload()" 
+                            style="position: absolute; bottom: 0; right: 0; background: #3498db; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 16px;"
+                            title="Profil resmini değiştir">📷</button>
+                </div>
+                <input type="file" id="avatarUpload" accept="image/*" style="display: none;" onchange="uploadAvatar()">
+                <div id="uploadStatus" style="margin-top: 10px; font-size: 14px;"></div>
+            </div>
+
+            <h1>🎉 HOŞ GELDİN!</h1>
+            <p>Başarıyla giriş yaptınız</p>
+            <p id="welcomeMessage"></p>
+            
+            <!-- Ana Sayfa Menü -->
+            <div style="margin: 20px 0;">
+                <button onclick="showComments()" class="submit-btn comment-button" style="background: #3498db; margin: 5px;">💬 Yorumlar</button>
+                <button onclick="showPongGame()" class="submit-btn" style="background: #e67e22; margin: 5px;">🎮 Pong Oyunu</button>
+                <button id="usersButton" onclick="showRegisteredUsers()" class="submit-btn" style="background: #9b59b6; margin: 5px;">👥 Kullanıcılar</button>
+                <button onclick="hideAllSections()" class="submit-btn" style="background: #95a5a6; margin: 5px;">🏠 Ana Sayfa</button>
+            </div>
+            
+            <!-- Yorumlar Bölümü -->
+            <div id="commentsSection" class="hidden comments-section">
+                <h3 class="comments-header">💬 YORUMLAR</h3>
+                
+                <!-- Yorum Yazma Formu -->
+                <div class="comment-form">
+                    <textarea id="commentInput" class="comment-input" placeholder="Yorumunuzu buraya yazın... (Ctrl+Enter ile hızlı gönder)" maxlength="500"></textarea>
+                    <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span id="charCounter" style="color: #ccc; font-size: 12px;">0/500</span>
+                        <button onclick="addComment()" class="submit-btn" style="background: #27ae60; width: auto; padding: 8px 20px;">📝 Yorum Gönder</button>
+                    </div>
+                </div>
+                
+                <!-- Yorumlar Listesi -->
+                <div id="commentsList">
+                    <!-- Yorumlar buraya dinamik olarak eklenecek -->
+                </div>
+            </div>
+            
+            <!-- Kullanıcılar Bölümü -->
+            <div id="usersList" class="hidden" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left;">
+                <h3 style="color: #ffd93d; margin-bottom: 10px;">📝 Kayıtlı Kullanıcılar:</h3>
+                <div id="usersContent"></div>
+            </div>
+            
+            <!-- Pong Oyunu Bölümü -->
+            <div id="pongGameSection" class="hidden" style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                <h3 style="color: #ffd93d; margin-bottom: 15px;">🎮 PONG OYUNU</h3>
+                <div id="pongGameArea" style="position: relative; margin: 0 auto; background: #000; border: 2px solid #fff; border-radius: 5px;">
+                    <canvas id="pongCanvas" width="800" height="400" style="display: block; border-radius: 3px;"></canvas>
+                </div>
+                <div id="gameControls" style="margin: 15px 0; color: white;">
+                    <p><strong>Kontroller:</strong></p>
+                    <p>🎮 Sol Oyuncu: W/S tuşları | Sağ Oyuncu: ↑/↓ Ok tuşları</p>
+                    <button id="startGameBtn" onclick="startPongGame()" class="submit-btn" style="background: #27ae60; margin: 10px;">🚀 Oyunu Başlat</button>
+                    <button id="resetGameBtn" onclick="resetPongGame()" class="submit-btn" style="background: #e74c3c; margin: 10px;">🔄 Yeniden Başlat</button>
+                    <button onclick="pausePongGame()" class="submit-btn" style="background: #f39c12; margin: 10px;">⏸️ Duraklat</button>
+                </div>
+                <div id="gameScore" style="color: white; font-size: 18px; margin: 10px 0;">
+                    <span id="leftScore">Oyuncu 1: 0</span> | <span id="rightScore">Oyuncu 2: 0</span>
+                </div>
+                <div id="gameStatus" style="color: #ffd93d; margin: 10px 0; font-weight: bold;"></div>
+            </div>
+            
+            <button onclick="logout()" class="submit-btn" style="margin-top: 20px; background: #e74c3c;">🚪 Çıkış Yap</button>
+        </div>
+    </div>
+
+
+    <script src="static/scripts/script.js"></script>
+    <!-- <script src="static/scripts/script.js" ></script> -->
+</body>
+</html>

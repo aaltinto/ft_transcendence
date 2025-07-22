@@ -77,7 +77,7 @@ export default function registerRoute(
           console.log("Error sending message", err);
           return reply.status(400).send({success: 'false', message: err});
         }
-        return reply.status(201).send({ message: "User registered successfully" });
+        return reply.status(201).send({ message: "User registered successfully", data: {user: user, mail: mail} });
       } catch (err) {
         console.log("Internal Server Error", err);
         reply.status(500).send({ error: "Internal Server Error" });
@@ -134,7 +134,7 @@ export default function registerRoute(
           return reply.status(400).send({success: 'false', message: err});
         }
 
-        reply.status(200).send({message: 'Verification message send', })
+        reply.status(200).send({message: 'Verification message send', data: {user: dbUser.username, mail: dbUser.email}})
       } catch (err) {
         console.log("Internal Server Error", err);
         reply.status(500).send({ error: "Internal Server Error" });

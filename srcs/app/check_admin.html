@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Kontrol</title>
+</head>
+<body>
+    <h1>Admin Kullanıcısı Kontrol</h1>
+    <button onclick="checkAdmin()">Admin Kontrol Et</button>
+    <div id="result"></div>
+
+    <script>
+        async function checkAdmin() {
+            try {
+                const response = await fetch('/auth/debug/admin-check');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('result').innerHTML = 'Hata: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
