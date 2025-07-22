@@ -11,11 +11,11 @@
 
 # {
 # 	"email": "altintoprakali98@gmail.com",
-# 	"code": "461350"
+# 	"code": "910734"
 # }
 
 # DELETE http://localhost:3002/profile/delete
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBbGkiLCJlbWFpbCI6ImFsdGludG9wcmFrYWxpOThAZ21haWwuY29tIiwiaWF0IjoxNzUzMTE0MTMxLCJleHAiOjE3NTMxMTc3MzF9.gxFuz3VV71OkbyYM8WafC3fFbjNtBDdR9mmVwxU-gQA
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBbGkiLCJlbWFpbCI6ImFsdGludG9wcmFrYWxpOThAZ21haWwuY29tIiwiaWF0IjoxNzUzMTg4MTc0LCJleHAiOjE3NTMxOTE3NzR9.C4HgxxZgYH2MZd9iRgK9vFyiHJf9fiFADRyC3MHizus
 
 # POST http://localhost:3001/2fa/request
 # Content-Type: application/json

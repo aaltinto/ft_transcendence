@@ -2,7 +2,7 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 
-const DATA_DIR: string = 'app/data';
+const DATA_DIR: string = '/app/data';
 const DB_PATH: string = path.join(DATA_DIR, 'auth.db');
 
 if (!fs.existsSync(DATA_DIR))

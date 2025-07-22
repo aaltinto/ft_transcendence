@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyInstance, FastifyRequest } from "fastify";
 import Database from "better-sqlite3";
 import { authenticateJWT } from "../middleware/authenticateJWT.js";
+import { publishQueue } from "./message.js";
 
 export default function userManagement(
   fastify: FastifyInstance,
@@ -64,7 +65,7 @@ export default function userManagement(
         }
 
         const username = user.username;
-
+        await publishQueue('user_delete', {username: username});
         // Check if user exists before attempting deletion
         const existingUser = db
           .prepare("SELECT id, username FROM users WHERE username = ?")
@@ -77,13 +78,10 @@ export default function userManagement(
           });
         }
 
-        // Perform soft delete or hard delete based on business requirements
-        // Using hard delete for this example
         const deleteResult = db
           .prepare("DELETE FROM users WHERE username = ?")
           .run(username);
 
-        // Check if deletion was successful
         if (deleteResult.changes === 0) {
           return reply.status(500).send({
             error: "Deletion failed",
