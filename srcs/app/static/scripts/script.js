@@ -52,9 +52,71 @@ loginForm.addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-        console.log("login success");
+        console.log("login success", data);
+        loginSection.classList.add('hidden');
+        twoFASection.classList.remove('hidden');
+        currentUserEmail = data.data.mail;
+    } else {
+        console.log("error", data);
     }
 });
 
+registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
+    const username = document.getElementById('regUsername').value;
+    const currentUserEmail = document.getElementById('regEmail').value;
+    const password = document.getElementById('regPassword').value;
+
+    const response = await fetch(`${AUTH_SERVICE}/register`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: username,
+            email: currentUserEmail,
+            password: password
+        })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        console.log("register success", data);
+        registerSection.classList.add('hidden');
+        twoFASection.classList.remove('hidden');
+
+    } else {
+        console.log("error", data);
+    }
+});
+
+twoFAForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const verificationCode = document.getElementById('verificationCode').value;
+
+    const response = await fetch(`${AUTH_SERVICE}/2fa/verify`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: currentUserEmail,
+            code: verificationCode
+        })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        console.log('succes', data);
+        localStorage.setItem('token', data.token);
+        twoFASection.classList.add('hidden');
+        dashboardSection.classList.remove('hidden');
+    } else {
+        console.log('error', data);
+    }
+});
 
