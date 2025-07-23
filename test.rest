@@ -6,16 +6,21 @@
 #   "password": "123"
 # }
 
-POST http://localhost:3001/2fa/verify
-Content-Type: application/json
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBbGkiLCJlbWFpbCI6ImFsdGludG9wcmFrYWxpOThAZ21haWwuY29tIiwiaWF0IjoxNzUzMjg5NzQ2LCJleHAiOjE3NTMyOTMzNDZ9.Fuk7lDtBMMMIv9Rg-C6cr9bhWcJHZZYZzxTVxOY7Ek4
+
+# POST http://localhost:3001/2fa/verify
+# Content-Type: application/json
 
 # {
-# 	"email": "altintoprakali98@gmail.com",
-# 	"code": "461350"
+# 	"email": "berhanberkakgun@gmail.com",
+# 	"code": "351793"
 # }
 
 # DELETE http://localhost:3002/profile/delete
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBbGkiLCJlbWFpbCI6ImFsdGludG9wcmFrYWxpOThAZ21haWwuY29tIiwiaWF0IjoxNzUzMTg4MTc0LCJleHAiOjE3NTMxOTE3NzR9.C4HgxxZgYH2MZd9iRgK9vFyiHJf9fiFADRyC3MHizus
+
+# GET http://localhost:3002/search?q=al&limit=3
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBbGkiLCJlbWFpbCI6ImFsdGludG9wcmFrYWxpOThAZ21haWwuY29tIiwiaWF0IjoxNzUzMjg5NzQ2LCJleHAiOjE3NTMyOTMzNDZ9.Fuk7lDtBMMMIv9Rg-C6cr9bhWcJHZZYZzxTVxOY7Ek4
 
 # POST http://localhost:3001/2fa/request
 # Content-Type: application/json
@@ -28,13 +33,13 @@ Content-Type: application/json
 # Content-Type: application/json
 
 # {
-# 	"username": "Ali",
+# 	"username": "polat",
 # 	"password": "123",
-# 	"email": "altintoprakali98@gmail.com"
+# 	"email": "berhanberkakgun@gmail.com"
 # }
 
-# GET http://localhost:3002/profile?username=Ali
-# Content-Type: application/json
+GET http://localhost:3002/profile?username=Ali Kemal
+Content-Type: application/json
 
 # GET http://localhost:3002/profile/1/friends
 # Content-Type: application/json

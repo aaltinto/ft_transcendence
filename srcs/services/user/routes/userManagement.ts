@@ -65,11 +65,11 @@ export default function userManagement(
         }
 
         const username = user.username;
-        await publishQueue('user_delete', {username: username});
+        await publishQueue("user_delete", { username: username });
         // Check if user exists before attempting deletion
         const existingUser = db
           .prepare("SELECT id, username FROM users WHERE username = ?")
-          .get(username) as {id: number, username: string};
+          .get(username) as { id: number; username: string };
 
         if (!existingUser) {
           return reply.status(404).send({
@@ -108,6 +108,80 @@ export default function userManagement(
           error: "Internal Server Error",
           message:
             "An unexpected error occurred while deleting the user account",
+        });
+      }
+    }
+  );
+
+  interface searchQuery {
+    q: string;
+    limit?: string;
+    min_length?: string;
+  }
+
+  fastify.get(
+    "/search",
+    { preHandler: [authenticateJWT] },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      try {
+        const {
+          q: searchTerm,
+          limit = "5",
+          min_length = "2",
+        } = request.query as searchQuery;
+        const currentUser = (request as any).user;
+
+        const minLength = parseInt(min_length) || 2;
+
+        if (!searchTerm || searchTerm.trim().length < minLength) {
+          return reply.status(200).send({
+            query: searchTerm || "",
+            results: [],
+            count: 0,
+            message: `Search term must be at least ${minLength} characters`,
+          });
+        }
+
+        const searchLimit = Math.min(parseInt(limit) || 5, 10); // Reduced max for real-time
+        const trimmedSearchTerm = searchTerm.trim();
+
+        // Optimized query for real-time search
+        const searchResults = db
+          .prepare(
+            `
+            SELECT id, username, status, last_active 
+            FROM users 
+            WHERE UPPER(username) LIKE UPPER(?) 
+            AND username != UPPER(?)
+            ORDER BY 
+            CASE 
+            WHEN username = UPPER(?) THEN 1
+            WHEN username LIKE UPPER(?) THEN 2
+            ELSE 3
+            END,
+            length(username) ASC,
+            username ASC
+            LIMIT ?
+            `
+          )
+          .all(
+            `%${trimmedSearchTerm}%`,
+            currentUser.username,
+            trimmedSearchTerm,
+            `${trimmedSearchTerm}%`,
+            searchLimit
+          );
+
+        return reply.status(200).send({
+          query: trimmedSearchTerm,
+          results: searchResults,
+          count: searchResults.length,
+        });
+      } catch (error) {
+        console.error("Error searching users:", error);
+        return reply.status(500).send({
+          error: "Internal Server Error",
+          message: "An unexpected error occurred while searching users",
         });
       }
     }
